@@ -1,0 +1,48 @@
+{
+  "name": "todo-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --no-cache"
+  },
+  "keywords": [
+    "Todo",
+    "API",
+    "Rest",
+    "Node",
+    "Typescript"
+  ],
+  "author": "matheus-dr",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^3.14.0",
+    "bcrypt": "^5.0.1",
+    "celebrate": "^15.0.1",
+    "cors": "^2.8.5",
+    "dotenv-flow": "^3.2.0",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.7.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/dotenv-flow": "^3.2.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^28.1.0",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/node": "^17.0.39",
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2",
+    "prisma": "^3.14.0",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.8.1",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.0.0",
+    "tscpaths": "^0.0.9",
+    "typescript": "^4.7.3"
+  }
+}
