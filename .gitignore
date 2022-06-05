@@ -4,3 +4,6 @@ package-lock.json
 
 # Enviroment
 .env
+
+# Build
+dist/
