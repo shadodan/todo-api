@@ -1,11 +1,24 @@
 import { Module } from '@nestjs/common';
 
-import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { PrismaService } from '../../shared/database/prisma.service';
+import { ListUserService } from './services/list.user.service';
+import { FindUserService } from './services/find.user.service';
+import { CreateUserService } from './services/create.user.service';
+import { UpdateUserService } from './services/update.user.service';
+import { DeleteUserService } from './services/delete.user.service';
+import { PrismaService } from '../../database/prisma.service';
+import { UserRepository } from './repository/user.repository';
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, PrismaService],
+  providers: [
+    PrismaService,
+    UserRepository,
+    CreateUserService,
+    ListUserService,
+    FindUserService,
+    UpdateUserService,
+    DeleteUserService,
+  ],
 })
 export class UserModule {}

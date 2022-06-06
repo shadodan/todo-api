@@ -1,0 +1,5 @@
+Criar testes unitários
+Criar repositórios
+Terminar fluxogramas da API
+Terminar migrations no banco de dados
+Implementar os módulos que faltam
