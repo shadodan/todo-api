@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id
+  username String
+  email    String  @unique
+  password String
+  phone    String  @unique
+  image    String?
+
+  friendshipsOne Friendship[] @relation("userOne")
+  friendshipsTwo Friendship[] @relation("userTwo")
+  categories     Category[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("users")
+}
+
+model Friendship {
+  id       String  @id
+  approved Boolean
+
+  userOne   User   @relation(fields: [userOneId], references: [id], name: "userOne")
+  userOneId String @map("id_user_one")
+
+  userTwo   User   @relation(fields: [userTwoId], references: [id], name: "userTwo")
+  userTwoId String @map("id_user_two")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("friendships")
+}
+
+model Category {
+  id     String @id
+  name   String
+  colour String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("id_user")
+  @@map("categories")
+}
