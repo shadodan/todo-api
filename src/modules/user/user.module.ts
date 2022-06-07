@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
 
 import { UserController } from './user.controller';
+import { PrismaService } from '../../database/prisma.service';
 import { ListUserService } from './services/list.user.service';
 import { FindUserService } from './services/find.user.service';
 import { CreateUserService } from './services/create.user.service';
 import { UpdateUserService } from './services/update.user.service';
 import { DeleteUserService } from './services/delete.user.service';
-import { PrismaService } from '../../database/prisma.service';
-import { UserRepository } from './repository/user.repository';
+import { PrismaUserRepository } from './repositories/prisma.user.repository';
 import { BcryptEncoderProvider } from '../../providers/bcrypt.encoder.provider';
 
 @Module({
   controllers: [UserController],
   providers: [
     PrismaService,
-    UserRepository,
+    PrismaUserRepository,
     CreateUserService,
     ListUserService,
     FindUserService,

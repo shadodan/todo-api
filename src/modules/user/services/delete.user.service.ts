@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { UserRepository } from '../repository/user.repository';
+import { PrismaUserRepository } from '../repositories/prisma.user.repository';
 
 @Injectable()
 export class DeleteUserService {
-  constructor(private repository: UserRepository) {}
+  constructor(private repository: PrismaUserRepository) {}
 
   public async execute(id: string): Promise<void> {
     await this.repository.delete(id);

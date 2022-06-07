@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { IUserDTO } from './dto/user.dto';
+import { UpdateUserDTO, UserDTO } from './dto/user.dto';
 import { ListUserService } from './services/list.user.service';
 import { FindUserService } from './services/find.user.service';
 import { CreateUserService } from './services/create.user.service';
@@ -26,22 +26,25 @@ export class UserController {
   ) {}
 
   @Post()
-  async create(@Body() data: IUserDTO): Promise<void> {
+  async create(@Body() data: UserDTO): Promise<void> {
     await this.createUserService.execute(data);
   }
 
   @Get()
-  async list(): Promise<IUserDTO[]> {
+  async list(): Promise<UserDTO[]> {
     return this.listUserService.execute();
   }
 
   @Get(':id')
-  async findById(@Param('id') id: string): Promise<IUserDTO> {
+  async findById(@Param('id') id: string): Promise<UserDTO> {
     return this.findUserService.execute(id);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: IUserDTO): Promise<void> {
+  async update(
+    @Param('id') id: string,
+    @Body() data: UpdateUserDTO
+  ): Promise<void> {
     await this.updateUserService.execute(id, data);
   }
 

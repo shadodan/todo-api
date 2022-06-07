@@ -6,4 +6,3 @@ Implementar os módulos que faltam
 Implementar serviços de autenticação
 Implementar serviços de envio de imagens
 Verificar como colocar middlewares de autenticação
-Melehorar a estrutura de arquivos

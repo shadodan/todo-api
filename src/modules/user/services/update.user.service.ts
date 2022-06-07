@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
-import { IUserDTO } from '../dto/user.dto';
-import { UserRepository } from '../repository/user.repository';
+import { UpdateUserDTO } from '../dto/user.dto';
+import { PrismaUserRepository } from '../repositories/prisma.user.repository';
 
 @Injectable()
 export class UpdateUserService {
-  constructor(private repository: UserRepository) {}
+  constructor(private repository: PrismaUserRepository) {}
 
-  public async execute(id: string, data: IUserDTO): Promise<void> {
+  public async execute(id: string, data: UpdateUserDTO): Promise<void> {
     await this.repository.update(id, data);
   }
 }
