@@ -8,6 +8,7 @@ import { UpdateUserService } from './services/update.user.service';
 import { DeleteUserService } from './services/delete.user.service';
 import { PrismaService } from '../../database/prisma.service';
 import { UserRepository } from './repository/user.repository';
+import { BcryptEncoderProvider } from '../../providers/bcrypt.encoder.provider';
 
 @Module({
   controllers: [UserController],
@@ -19,6 +20,7 @@ import { UserRepository } from './repository/user.repository';
     FindUserService,
     UpdateUserService,
     DeleteUserService,
+    BcryptEncoderProvider,
   ],
 })
 export class UserModule {}

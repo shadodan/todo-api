@@ -12,13 +12,11 @@ export class UserRepository {
   }
 
   async list(): Promise<IUserDTO[]> {
-    return this.prisma.user.findMany({ where: { deletedAt: null } });
+    return this.prisma.user.findMany();
   }
 
   async findById(id: string): Promise<IUserDTO> {
-    return this.prisma.user.findFirst({
-      where: { id, deletedAt: null },
-    });
+    return this.prisma.user.findFirst({ where: { id } });
   }
 
   async update(id: string, data: IUserDTO): Promise<void> {
@@ -26,9 +24,6 @@ export class UserRepository {
   }
 
   async delete(id: string): Promise<void> {
-    await this.prisma.user.update({
-      where: { id },
-      data: { deletedAt: new Date() },
-    });
+    await this.prisma.user.delete({ where: { id } });
   }
 }
