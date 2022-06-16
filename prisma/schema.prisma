@@ -13,7 +13,6 @@ model User {
   email    String  @unique
   password String
   phone    String  @unique
-  image    String?
 
   tasks          Task[]
   taskUser       TaskUser[]
