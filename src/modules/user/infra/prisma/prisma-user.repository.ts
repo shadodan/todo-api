@@ -27,4 +27,12 @@ export class PrismaUserRepository implements IUserRepository {
   async remove(id: string): Promise<void> {
     await this.repository.delete({ where: { id } });
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.repository.findUnique({ where: { email } });
+  }
+
+  async findByPhone(phone: string): Promise<User | null> {
+    return this.repository.findUnique({ where: { phone } });
+  }
 }

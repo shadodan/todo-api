@@ -10,4 +10,8 @@ export interface IUserRepository {
   update(id: string, data: Partial<User>): Promise<void>;
 
   remove(id: string): Promise<void>;
+
+  findByEmail(email: string): Promise<User | null>;
+
+  findByPhone(phone: string): Promise<User | null>;
 }

@@ -1,23 +1,39 @@
 import { inject, injectable } from 'tsyringe';
 
-import { User } from '../../domain/entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { User } from '../../domain/entities/user.entity';
+import { DomainError } from '../../../../core/domain/errors/domain.error';
 import { IUserRepository } from '../../domain/repositories/user.repository';
+import { IEncoderProvider } from '../../../../infra/providers/encoder/encoder.provider';
 
 @injectable()
 export class CreateUserUseCase {
   constructor(
     @inject('UserRepository')
-    private userRepository: IUserRepository
+    private userRepository: IUserRepository,
+    @inject('EncoderProvider')
+    private encoderProvider: IEncoderProvider
   ) {}
 
   async execute(data: CreateUserDto): Promise<void> {
-    // TODO: ADD METHODS FIND BY EMAIL AND BY PHONE TO THROW ERRORS IF EXISTS
+    const emailAlreadyInUse = await this.userRepository.findByEmail(data.email);
+
+    if (emailAlreadyInUse) {
+      throw new DomainError('Email already in use');
+    }
+
+    const phoneAlreadyInUse = await this.userRepository.findByPhone(data.phone);
+
+    if (phoneAlreadyInUse) {
+      throw new DomainError('Phone already in use');
+    }
+
     const user = new User();
 
-    Object.assign(user, { ...data });
+    const password = await this.encoderProvider.encode(data.password);
 
-    // TODO: ADD HASH TO PASSWORD
+    Object.assign(user, { ...data, password });
+
     await this.userRepository.create(user);
   }
 }
