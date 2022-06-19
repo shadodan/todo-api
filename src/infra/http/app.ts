@@ -3,8 +3,9 @@ import 'reflect-metadata';
 import express from 'express';
 import { config } from 'dotenv-flow';
 
+import '../container';
 import api from '../../config/api';
-import { appRoutes } from './routes/app.routes';
+import { appRoutes } from './app.routes';
 
 config({ silent: true });
 const apiConfig = api();
