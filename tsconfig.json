@@ -20,17 +20,6 @@
     "allowJs": true,
     "checkJs": true,
     "diagnostics": true,
-    "paths": {
-      "@modules/*": [
-        "modules/*"
-      ],
-      "@shared/*": [
-        "shared/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ]
-    },
     "typeRoots": [
       "@types",
       "./node_modules/@types"

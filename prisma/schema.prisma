@@ -16,15 +16,15 @@ model User {
   email    String  @unique
   password String
   phone    String  @unique
-  image    String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @default(now()) @updatedAt
-  deleted_at DateTime?
-
-  friendships    Friendship[] @relation("userOne")
-  friendships_rq Friendship[] @relation("userTwo")
+  tasks          Task[]
+  taskUser       TaskUser[]
   categories     Category[]
+  friendshipsOne Friendship[] @relation("userOne")
+  friendshipsTwo Friendship[] @relation("userTwo")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("users")
 }
@@ -33,15 +33,14 @@ model Friendship {
   id       String  @id
   approved Boolean
 
-  user_one    User   @relation(fields: [id_user_one], references: [id], name: "userOne")
-  id_user_one String
+  userOne   User   @relation(fields: [userOneId], references: [id], name: "userOne")
+  userOneId String @map("id_user_one")
 
-  user_two    User   @relation(fields: [id_user_two], references: [id], name: "userTwo")
-  id_user_two String
+  userTwo   User   @relation(fields: [userTwoId], references: [id], name: "userTwo")
+  userTwoId String @map("id_user_two")
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @default(now()) @updatedAt
-  deleted_at DateTime?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("friendships")
 }
@@ -51,8 +50,57 @@ model Category {
   name   String
   colour String
 
-  user    User   @relation(fields: [id_user], references: [id])
-  id_user String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("id_user")
+
+  tasks Task[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("categories")
+}
+
+model DefaultCriticality {
+  id          String @id
+  criticality String
+
+  tasks Task[]
+
+  @@map("default_criticality")
+}
+
+model Task {
+  id          String    @id
+  title       String
+  description String
+  deadline    DateTime?
+  isFinished  Boolean   @map("is_finished")
+
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String @map("id_owner")
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String   @map("id_category")
+
+  criticality   DefaultCriticality @relation(fields: [criticalityId], references: [id])
+  criticalityId String             @map("id_default_criticality")
+
+  taskUser TaskUser[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("tasks")
+}
+
+model TaskUser {
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("id_user")
+
+  task   Task   @relation(fields: [taskId], references: [id])
+  taskId String @map("id_task")
+
+  @@id([userId, taskId])
+  @@map("aux_tasks_users")
 }
