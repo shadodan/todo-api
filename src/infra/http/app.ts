@@ -5,7 +5,7 @@ import { config } from 'dotenv-flow';
 
 import '../container';
 import api from '../../config/api';
-import { appRoutes } from './app.routes';
+import { appRoutes } from './routes/app.routes';
 
 config({ silent: true });
 const apiConfig = api();

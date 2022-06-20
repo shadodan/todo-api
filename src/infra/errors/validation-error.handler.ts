@@ -8,9 +8,6 @@ export function validationErrorHandler(
 ) {
   const errors = validationResult(req);
 
-  // TODO: VERIFY WHY IT IS RETURNING AN EMPTY ARRAY
-  console.log(errors.array());
-
   if (!errors.isEmpty()) {
     res.status(400).json({ status: 'Error', message: errors.array() }).end();
   } else {
