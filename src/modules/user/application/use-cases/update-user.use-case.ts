@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { IUserRepository } from '../../domain/repositories/user.repository';
+import { IUserRepository } from '../../core/repositories/user.repository';
 
 @injectable()
 export class UpdateUserUseCase {
@@ -11,6 +11,7 @@ export class UpdateUserUseCase {
   ) {}
 
   async execute(id: string, data: UpdateUserDto): Promise<void> {
+    // TODO: MAKE ONLY THE AUTHENTICATED USER CAN UPDATE ITSELF
     await this.userRepository.update(id, data);
   }
 }

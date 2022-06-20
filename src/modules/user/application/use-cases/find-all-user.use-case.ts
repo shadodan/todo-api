@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { User } from '../../domain/entities/user.entity';
-import { IUserRepository } from '../../domain/repositories/user.repository';
+import { User } from '../../core/entities/user.entity';
+import { IUserRepository } from '../../core/repositories/user.repository';
 
 @injectable()
 export class FindAllUserUseCase {

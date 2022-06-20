@@ -1,8 +1,8 @@
 import { injectable } from 'tsyringe';
 
-import { User } from '../../domain/entities/user.entity';
+import { User } from '../../core/entities/user.entity';
 import { prisma } from '../../../../infra/database/prisma/client';
-import { IUserRepository } from '../../domain/repositories/user.repository';
+import { IUserRepository } from '../../core/repositories/user.repository';
 
 @injectable()
 export class PrismaUserRepository implements IUserRepository {

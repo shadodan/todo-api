@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IUserRepository } from '../../domain/repositories/user.repository';
+import { IUserRepository } from '../../core/repositories/user.repository';
 
 @injectable()
 export class RemoveUserUseCase {
@@ -10,6 +10,7 @@ export class RemoveUserUseCase {
   ) {}
 
   async execute(id: string): Promise<void> {
+    // TODO: MAKE ONLY THE AUTHENTICATED USER CAN REMOVE ITSELF
     await this.userRepository.remove(id);
   }
 }

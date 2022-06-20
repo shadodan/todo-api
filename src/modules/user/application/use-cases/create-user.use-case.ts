@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
 import { CreateUserDto } from '../dto/create-user.dto';
-import { User } from '../../domain/entities/user.entity';
+import { User } from '../../core/entities/user.entity';
 import { DomainError } from '../../../../core/domain/errors/domain.error';
-import { IUserRepository } from '../../domain/repositories/user.repository';
+import { IUserRepository } from '../../core/repositories/user.repository';
 import { IEncoderProvider } from '../../../../infra/providers/encoder/encoder.provider';
 
 @injectable()
