@@ -1,27 +1,27 @@
 import { sign, verify } from 'jsonwebtoken';
 import { injectable } from 'tsyringe';
 
-import jwtAuth from '../../../config/jwt-auth';
+import jwt from '../../../config/jwt';
 import { User } from '../../../modules/user/core/entities/user.entity';
-import { IJwtAuthProvider } from '../../../core/application/providers/jwt-auth.provider';
+import { IJwtProvider } from '../../../core/application/providers/jwt.provider';
 import { JwtPayloadInterface } from '../../../auth/core/interfaces/jwt-payload.interface';
 
 @injectable()
-export class JsonwebtokenJwtAuthProvider implements IJwtAuthProvider {
-  private jwtAuthConfig = jwtAuth();
+export class JsonwebtokenJwtProvider implements IJwtProvider {
+  private jwtConfig = jwt();
 
   async sign(user: User): Promise<string> {
     const payload: JwtPayloadInterface = { sub: { user } };
 
-    return sign(payload, this.jwtAuthConfig.JWT_SECRET, {
-      expiresIn: this.jwtAuthConfig.JWT_EXPIRATION,
+    return sign(payload, this.jwtConfig.JWT_SECRET, {
+      expiresIn: this.jwtConfig.JWT_EXPIRATION,
     });
   }
 
   verify(token: string): JwtPayloadInterface {
     return verify(
       token,
-      this.jwtAuthConfig.JWT_SECRET
+      this.jwtConfig.JWT_SECRET
     ) as unknown as JwtPayloadInterface;
   }
 }

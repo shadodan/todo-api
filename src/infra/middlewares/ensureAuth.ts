@@ -2,7 +2,7 @@ import { container } from 'tsyringe';
 import { NextFunction, Request, Response } from 'express';
 
 import { AppError } from '../../core/domain/errors/app.error';
-import { IJwtAuthProvider } from '../../core/application/providers/jwt-auth.provider';
+import { IJwtProvider } from '../../core/application/providers/jwt.provider';
 
 export function ensureAuth(
   req: Request,
@@ -18,10 +18,9 @@ export function ensureAuth(
   const [, token] = authToken.split(' ');
 
   try {
-    const jwtAuthProvider =
-      container.resolve<IJwtAuthProvider>('JwtAuthProvider');
+    const jwtProvider = container.resolve<IJwtProvider>('JwtProvider');
 
-    req.token = jwtAuthProvider.verify(token);
+    req.token = jwtProvider.verify(token);
 
     next();
   } catch (err) {
