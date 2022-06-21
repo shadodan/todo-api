@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IUserRepository } from '../../core/repositories/user.repository';
 import { User } from '../../core/entities/user.entity';
+import { IUserRepository } from '../../core/repositories/user.repository';
 
 @injectable()
 export class FindOneUserUseCase {
@@ -11,6 +11,7 @@ export class FindOneUserUseCase {
   ) {}
 
   async execute(id: string): Promise<User> {
+    // TODO: MAKE ONLY THE AUTHENTICATED USER CAN SEE ITS COMPLETE INFO (EXCLUDING PASSWORD)
     const user = await this.userRepository.findOne(id);
 
     if (!user) {

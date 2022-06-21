@@ -11,6 +11,7 @@ export class FindAllUserUseCase {
   ) {}
 
   async execute(): Promise<User[]> {
+    // TODO: MAKE THE RIGHT RETURN TYPE OF THIS LIST
     return this.userRepository.findAll();
   }
 }

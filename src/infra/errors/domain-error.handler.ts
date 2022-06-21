@@ -9,8 +9,7 @@ export function domainErrorHandler(
   _next: NextFunction
 ) {
   if (err instanceof DomainError) {
-    // TODO: VERIFIY WHICH HTTP STATUS BEST SUITS HERE
-    res.status(422).json({
+    res.status(303).json({
       status: 'Error',
       message: err.message,
     });
