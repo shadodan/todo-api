@@ -1,10 +1,11 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IEncoderProvider } from '../../../core/application/providers/encoder.provider';
-import { IUserRepository } from '../../../modules/user/core/repositories/user.repository';
 import { LoginDto } from '../dto/login.dto';
+import { AppError } from '../../../core/domain/errors/app.error';
 import { DomainError } from '../../../core/domain/errors/domain.error';
+import { IEncoderProvider } from '../../../core/application/providers/encoder.provider';
 import { IJwtAuthProvider } from '../../../core/application/providers/jwt-auth.provider';
+import { IUserRepository } from '../../../modules/user/core/repositories/user.repository';
 
 @injectable()
 export class LoginService {
@@ -18,6 +19,10 @@ export class LoginService {
   ) {}
 
   async execute({ email, password }: LoginDto): Promise<string> {
+    if (!email || !password) {
+      throw new AppError('Missing required arguments');
+    }
+
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
@@ -33,7 +38,6 @@ export class LoginService {
       throw new DomainError('Credentials incorrect');
     }
 
-    // TODO: VERIFY IF OCCURS ERROR IN PROMISE DONT RETURNING
     return this.jwtAuthProvider.sign(user);
   }
 }

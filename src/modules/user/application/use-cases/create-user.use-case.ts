@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { CreateUserDto } from '../dto/create-user.dto';
 import { User } from '../../core/entities/user.entity';
+import { AppError } from '../../../../core/domain/errors/app.error';
 import { DomainError } from '../../../../core/domain/errors/domain.error';
 import { IUserRepository } from '../../core/repositories/user.repository';
 import { IEncoderProvider } from '../../../../core/application/providers/encoder.provider';
@@ -16,6 +17,10 @@ export class CreateUserUseCase {
   ) {}
 
   async execute(data: CreateUserDto): Promise<void> {
+    if (!data.email || !data.username || !data.password || !data.phone) {
+      throw new AppError('Missing required arguments');
+    }
+
     const emailAlreadyInUse = await this.userRepository.findByEmail(data.email);
 
     if (emailAlreadyInUse) {
