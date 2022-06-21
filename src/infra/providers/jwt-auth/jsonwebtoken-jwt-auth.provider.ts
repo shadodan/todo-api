@@ -18,7 +18,7 @@ export class JsonwebtokenJwtAuthProvider implements IJwtAuthProvider {
     });
   }
 
-  async verify(token: string): Promise<JwtPayloadInterface> {
+  verify(token: string): JwtPayloadInterface {
     return verify(
       token,
       this.jwtAuthConfig.JWT_SECRET

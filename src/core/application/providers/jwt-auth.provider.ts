@@ -4,5 +4,5 @@ import { JwtPayloadInterface } from '../../../auth/core/interfaces/jwt-payload.i
 export interface IJwtAuthProvider {
   sign(user: User): Promise<string>;
 
-  verify(token: string): Promise<JwtPayloadInterface>;
+  verify(token: string): JwtPayloadInterface;
 }
