@@ -1,5 +1,5 @@
 import { DefaultEntity } from '../../../../core/domain/entities/default.entity';
-import { generateUuidHelper } from '../../../../core/helpers/generate-uuid.helper';
+import { generateUuidHelper } from '../../../../core/application/helpers/generate-uuid.helper';
 
 export class User extends DefaultEntity {
   id: string;

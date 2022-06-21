@@ -4,7 +4,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { User } from '../../core/entities/user.entity';
 import { DomainError } from '../../../../core/domain/errors/domain.error';
 import { IUserRepository } from '../../core/repositories/user.repository';
-import { IEncoderProvider } from '../../../../infra/providers/encoder/encoder.provider';
+import { IEncoderProvider } from '../../../../core/application/providers/encoder.provider';
 
 @injectable()
 export class CreateUserUseCase {
