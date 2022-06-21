@@ -11,7 +11,7 @@ appRoutes.use('/user', userRoutes);
 
 appRoutes.use('/auth', authRoutes);
 
-appRoutes.use(appErrorHandler);
 appRoutes.use(domainErrorHandler);
+appRoutes.use(appErrorHandler);
 
 export { appRoutes };

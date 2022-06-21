@@ -6,7 +6,7 @@ export function domainErrorHandler(
   err: Error,
   _req: Request,
   res: Response,
-  _next: NextFunction
+  next: NextFunction
 ) {
   if (err instanceof DomainError) {
     res.status(303).json({
@@ -15,8 +15,5 @@ export function domainErrorHandler(
     });
   }
 
-  res.status(500).json({
-    status: 'Error',
-    message: err.message,
-  });
+  next(err);
 }
