@@ -1,6 +1,6 @@
 import { User } from '../../../modules/user/core/entities/user.entity';
 
-export interface JwtPayloadInterface {
+export interface IJwtPayload {
   sub: {
     user: User;
   };

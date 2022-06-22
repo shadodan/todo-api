@@ -1,4 +1,4 @@
-export interface CreateUserDto {
+export interface ICreateUserDto {
   username: string;
   email: string;
   phone: string;

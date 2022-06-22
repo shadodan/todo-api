@@ -3,8 +3,8 @@ import { inject, injectable } from 'tsyringe';
 import { LoginDto } from '../dto/login.dto';
 import { AppError } from '../../../core/domain/errors/app.error';
 import { DomainError } from '../../../core/domain/errors/domain.error';
-import { IEncoderProvider } from '../../../core/application/providers/encoder.provider';
 import { IJwtProvider } from '../../../core/application/providers/jwt.provider';
+import { IEncoderProvider } from '../../../core/application/providers/encoder.provider';
 import { IUserRepository } from '../../../modules/user/core/repositories/user.repository';
 
 @injectable()
@@ -20,7 +20,7 @@ export class LoginService {
 
   async execute({ email, password }: LoginDto): Promise<string> {
     if (!email || !password) {
-      throw new AppError('Missing required arguments');
+      throw new AppError('Credentials incorrect');
     }
 
     const user = await this.userRepository.findByEmail(email);

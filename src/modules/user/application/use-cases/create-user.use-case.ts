@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { CreateUserDto } from '../dto/create-user.dto';
+import { ICreateUserDto } from '../dto/create-user.dto';
 import { User } from '../../core/entities/user.entity';
 import { AppError } from '../../../../core/domain/errors/app.error';
 import { DomainError } from '../../../../core/domain/errors/domain.error';
@@ -17,9 +17,9 @@ export class CreateUserUseCase {
     private encoderProvider: IEncoderProvider
   ) {}
 
-  async execute(data: CreateUserDto): Promise<void> {
+  async execute(data: ICreateUserDto): Promise<void> {
     if (!createUserValidator(data)) {
-      throw new AppError('Missing required arguments');
+      throw new AppError('Validation error, please check the ');
     }
 
     const emailAlreadyInUse = await this.userRepository.findByEmail(data.email);

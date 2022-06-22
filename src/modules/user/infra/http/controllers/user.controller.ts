@@ -56,8 +56,9 @@ export class UserController {
 
       const data = req.body;
       const { id } = req.params;
+      const { user } = req.token.sub;
 
-      res.json(await service.execute(id, data));
+      res.json(await service.execute(id, data, user));
     } catch (err) {
       next(err);
     }
@@ -68,8 +69,9 @@ export class UserController {
       const service = container.resolve(RemoveUserUseCase);
 
       const { id } = req.params;
+      const { user } = req.token.sub;
 
-      res.json(await service.execute(id));
+      res.json(await service.execute(id, user));
     } catch (err) {
       next(err);
     }

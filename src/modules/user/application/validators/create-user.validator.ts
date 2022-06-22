@@ -1,24 +1,21 @@
-import { CreateUserDto } from '../dto/create-user.dto';
+import { ICreateUserDto } from '../dto/create-user.dto';
 
 export function createUserValidator({
-  username,
   email,
   phone,
   password,
-}: CreateUserDto): boolean {
-  // Username validation
-  if (!username || username.trim().length > 255) {
-    return false;
-  }
+  username,
+}: ICreateUserDto): boolean {
+  let isValidated = true;
 
   // Email validation
   if (!email || !email.includes('@') || email.trim().length > 255) {
-    return false;
+    isValidated = false;
   }
 
   // Phone validation
   if (!phone || phone.trim().length > 255) {
-    return false;
+    isValidated = false;
   }
 
   // Password validation
@@ -27,12 +24,17 @@ export function createUserValidator({
     !/[a-z]/.test(password) ||
     !/[A-Z]/.test(password) ||
     !/\d/.test(password) ||
-    !/[!@#$%^&*]/.test(password) ||
+    !/[!@#$%^&*.,\/+{\[\]\-;´`~<>}\\?_=§()|]/.test(password) ||
     password.length < 8 ||
     password.trim().length > 255
   ) {
-    return false;
+    isValidated = false;
   }
 
-  return true;
+  // Username validation
+  if (!username || username.trim().length > 255) {
+    isValidated = false;
+  }
+
+  return isValidated;
 }

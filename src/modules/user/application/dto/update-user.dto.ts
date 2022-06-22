@@ -1,3 +1,3 @@
-import { CreateUserDto } from './create-user.dto';
+import { ICreateUserDto } from './create-user.dto';
 
-export interface UpdateUserDto extends Partial<CreateUserDto> {}
+export interface IUpdateUserDto extends Partial<ICreateUserDto> {}

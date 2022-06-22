@@ -1,8 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { IUpdateUserDto } from '../dto/update-user.dto';
+import { User } from '../../core/entities/user.entity';
 import { AppError } from '../../../../core/domain/errors/app.error';
 import { IUserRepository } from '../../core/repositories/user.repository';
+import { updateUserValidator } from '../validators/update-user.validator';
 
 @injectable()
 export class UpdateUserUseCase {
@@ -11,9 +13,8 @@ export class UpdateUserUseCase {
     private userRepository: IUserRepository
   ) {}
 
-  async execute(id: string, data: UpdateUserDto): Promise<void> {
-    // TODO: MAKE ONLY THE AUTHENTICATED USER CAN UPDATE ITSELF
-    if (data.password || data.email || data.phone) {
+  async execute(id: string, data: IUpdateUserDto, user: User): Promise<void> {
+    if (!updateUserValidator(id, data, user)) {
       throw new AppError('Service unavailable in this method', 405);
     }
 
