@@ -18,5 +18,10 @@ export function updateUserValidator(
     isValidated = false;
   }
 
+  // Verifies if the username is passed, if it is then check its length
+  if (data.username && data.username.trim().length > 255) {
+    isValidated = false;
+  }
+
   return isValidated;
 }

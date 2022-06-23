@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { LoginDto } from '../dto/login.dto';
+import { ILoginDto } from '../dto/login.dto';
 import { AppError } from '../../../core/domain/errors/app.error';
 import { DomainError } from '../../../core/domain/errors/domain.error';
 import { IJwtProvider } from '../../../core/application/providers/jwt.provider';
@@ -23,7 +23,7 @@ export class LoginService {
     private jwtProvider: IJwtProvider
   ) {}
 
-  async execute({ email, password }: LoginDto): Promise<LoginResponse> {
+  async execute({ email, password }: ILoginDto): Promise<LoginResponse> {
     if (!email || !password) {
       throw new AppError('Credentials incorrect');
     }

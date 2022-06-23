@@ -7,4 +7,6 @@ const authController = new AuthController();
 
 authRoutes.post('/login', authController.login);
 
+authRoutes.post('/recover-password', authController.recoverPassword);
+
 export { authRoutes };
