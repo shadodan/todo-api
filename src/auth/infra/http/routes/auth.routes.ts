@@ -9,4 +9,9 @@ authRoutes.post('/login', authController.login);
 
 authRoutes.post('/recover-password', authController.recoverPassword);
 
+authRoutes.post(
+  '/change-forgotten-password/:id/:token',
+  authController.changeForgottenPassword
+);
+
 export { authRoutes };

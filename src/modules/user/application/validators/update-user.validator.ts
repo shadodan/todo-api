@@ -1,10 +1,10 @@
 import { IUpdateUserDto } from '../dto/update-user.dto';
-import { User } from '../../core/entities/user.entity';
+import { UserToken } from '../../../../auth/core/interfaces/user-token';
 
 export function updateUserValidator(
   id: string,
   data: IUpdateUserDto,
-  user: User
+  user: UserToken
 ): boolean {
   let isValidated = true;
 

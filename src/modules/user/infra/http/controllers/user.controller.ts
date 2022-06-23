@@ -10,11 +10,11 @@ import { FindOneUserUseCase } from '../../../application/use-cases/find-one-user
 export class UserController {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const service = container.resolve(CreateUserUseCase);
+      const useCase = container.resolve(CreateUserUseCase);
 
       const data = req.body;
 
-      res.status(201).json(await service.execute(data));
+      res.status(201).json(await useCase.execute(data));
     } catch (err) {
       next(err);
     }
@@ -26,9 +26,9 @@ export class UserController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const service = container.resolve(FindAllUserUseCase);
+      const useCase = container.resolve(FindAllUserUseCase);
 
-      res.json(await service.execute());
+      res.json(await useCase.execute());
     } catch (err) {
       next(err);
     }
@@ -40,11 +40,11 @@ export class UserController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const service = container.resolve(FindOneUserUseCase);
+      const useCase = container.resolve(FindOneUserUseCase);
 
       const { id } = req.params;
 
-      res.json(await service.execute(id));
+      res.json(await useCase.execute(id));
     } catch (err) {
       next(err);
     }
@@ -52,13 +52,13 @@ export class UserController {
 
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const service = container.resolve(UpdateUserUseCase);
+      const useCase = container.resolve(UpdateUserUseCase);
 
       const data = req.body;
       const { id } = req.params;
       const { user } = req.token.sub;
 
-      res.json(await service.execute(id, data, user));
+      res.json(await useCase.execute(id, data, user));
     } catch (err) {
       next(err);
     }
@@ -66,12 +66,12 @@ export class UserController {
 
   async remove(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const service = container.resolve(RemoveUserUseCase);
+      const useCase = container.resolve(RemoveUserUseCase);
 
       const { id } = req.params;
       const { user } = req.token.sub;
 
-      res.json(await service.execute(id, user));
+      res.json(await useCase.execute(id, user));
     } catch (err) {
       next(err);
     }

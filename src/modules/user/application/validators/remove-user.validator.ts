@@ -1,6 +1,6 @@
-import { User } from '../../core/entities/user.entity';
+import { UserToken } from '../../../../auth/core/interfaces/user-token';
 
-export function removeUserValidator(id: string, user: User): boolean {
+export function removeUserValidator(id: string, user: UserToken): boolean {
   let isValidated = true;
 
   // Only the authenticated user can delete itself

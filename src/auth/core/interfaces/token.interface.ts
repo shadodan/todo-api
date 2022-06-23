@@ -1,7 +1,7 @@
-import { User } from '../../../modules/user/core/entities/user.entity';
+import { UserToken } from './user-token';
 
 export interface IToken {
   sub: {
-    user: Omit<User, 'password' | 'createdAt' | 'updatedAt'>;
+    user: UserToken;
   };
 }
