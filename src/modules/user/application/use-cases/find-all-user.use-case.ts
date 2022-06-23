@@ -3,6 +3,8 @@ import { inject, injectable } from 'tsyringe';
 import { User } from '../../core/entities/user.entity';
 import { IUserRepository } from '../../core/repositories/user.repository';
 
+type ListUserResponse = Pick<User, 'id' | 'username'>;
+
 @injectable()
 export class FindAllUserUseCase {
   constructor(
@@ -10,8 +12,11 @@ export class FindAllUserUseCase {
     private userRepository: IUserRepository
   ) {}
 
-  async execute(): Promise<User[]> {
-    // TODO: MAKE THE RIGHT RETURN TYPE OF THIS LIST
-    return this.userRepository.findAll();
+  async execute(): Promise<ListUserResponse[]> {
+    const users = await this.userRepository.findAll();
+
+    return users.map(user => {
+      return { id: user.id, username: user.username } as ListUserResponse;
+    });
   }
 }

@@ -7,6 +7,11 @@ import { IJwtProvider } from '../../../core/application/providers/jwt.provider';
 import { IEncoderProvider } from '../../../core/application/providers/encoder.provider';
 import { IUserRepository } from '../../../modules/user/core/repositories/user.repository';
 
+type LoginResponse = {
+  status: boolean;
+  token: string;
+};
+
 @injectable()
 export class LoginService {
   constructor(
@@ -18,7 +23,7 @@ export class LoginService {
     private jwtProvider: IJwtProvider
   ) {}
 
-  async execute({ email, password }: LoginDto): Promise<string> {
+  async execute({ email, password }: LoginDto): Promise<LoginResponse> {
     if (!email || !password) {
       throw new AppError('Credentials incorrect');
     }
@@ -38,6 +43,6 @@ export class LoginService {
       throw new DomainError('Credentials incorrect');
     }
 
-    return this.jwtProvider.sign(user);
+    return { status: true, token: await this.jwtProvider.sign(user) };
   }
 }
