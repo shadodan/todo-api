@@ -8,7 +8,7 @@ import { IJwtPayload } from '../../../auth/core/interfaces/jwt-payload.interface
 
 @singleton()
 export class JsonwebtokenJwtProvider implements IJwtProvider {
-  private jwtConfig = jwt();
+  private readonly jwtConfig = jwt();
 
   async sign(user: User): Promise<string> {
     const payload: IJwtPayload = {
