@@ -2,7 +2,6 @@ import { inject, injectable } from 'tsyringe';
 
 import { ICreateUserDto } from '../dto/create-user.dto';
 import { User } from '../../core/entities/user.entity';
-import { AppError } from '../../../../core/domain/errors/app.error';
 import { DomainError } from '../../../../core/domain/errors/domain.error';
 import { IUserRepository } from '../../core/repositories/user.repository';
 import { createUserValidator } from '../validators/create-user.validator';
@@ -18,9 +17,7 @@ export class CreateUserUseCase {
   ) {}
 
   async execute(data: ICreateUserDto): Promise<void> {
-    if (!createUserValidator(data)) {
-      throw new AppError('Validation error, please check the ');
-    }
+    createUserValidator(data);
 
     const emailAlreadyInUse = await this.userRepository.findByEmail(data.email);
 

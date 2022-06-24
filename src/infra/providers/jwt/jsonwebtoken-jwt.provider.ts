@@ -10,7 +10,7 @@ import { IJwtPayload } from '../../../auth/core/interfaces/jwt-payload.interface
 export class JsonwebtokenJwtProvider implements IJwtProvider {
   private jwtConfig = jwt();
 
-  async sign(user: User): Promise<string> {
+  async sign(user: User, expirationTime?: string): Promise<string> {
     const payload: IJwtPayload = {
       sub: {
         user: {
@@ -23,7 +23,7 @@ export class JsonwebtokenJwtProvider implements IJwtProvider {
     };
 
     return sign(payload, this.jwtConfig.JWT_SECRET, {
-      expiresIn: this.jwtConfig.JWT_EXPIRATION,
+      expiresIn: expirationTime ?? this.jwtConfig.JWT_EXPIRATION,
     });
   }
 

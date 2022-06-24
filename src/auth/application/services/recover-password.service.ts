@@ -29,11 +29,11 @@ export class RecoverPasswordService {
       throw new DomainError('User not found');
     }
 
-    const token = await this.jwtProvider.sign(user);
+    const token = await this.jwtProvider.sign(user, '15m');
 
     const apiConfig = api();
 
-    const recoverPasswordLink = `${apiConfig.API_URL}/auth/change-password/${user.id}/${token}`;
+    const recoverPasswordLink = `${apiConfig.API_URL}/auth/change-forgotten-password/${user.id}/${token}`;
 
     await this.emailProvider.sendRecoverPasswordEmail(
       email,
