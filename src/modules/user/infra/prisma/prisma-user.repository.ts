@@ -1,10 +1,7 @@
-import { singleton } from 'tsyringe';
-
 import { User } from '../../core/entities/user.entity';
 import { prisma } from '../../../../infra/database/prisma/client';
 import { IUserRepository } from '../../core/repositories/user.repository';
 
-@singleton()
 export class PrismaUserRepository implements IUserRepository {
   private repository = prisma.user;
 

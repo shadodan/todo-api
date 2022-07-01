@@ -1,12 +1,10 @@
 import { sign, verify } from 'jsonwebtoken';
-import { singleton } from 'tsyringe';
 
 import jwt from '../../../config/jwt';
 import { User } from '../../../modules/user/core/entities/user.entity';
 import { IJwtProvider } from '../../../core/application/providers/jwt.provider';
 import { IJwtPayload } from '../../../auth/core/interfaces/jwt-payload.interface';
 
-@singleton()
 export class JsonwebtokenJwtProvider implements IJwtProvider {
   private jwtConfig = jwt();
 

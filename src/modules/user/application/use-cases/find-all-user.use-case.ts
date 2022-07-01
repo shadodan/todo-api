@@ -1,12 +1,12 @@
 import { User } from '../../core/entities/user.entity';
 import { IUserRepository } from '../../core/repositories/user.repository';
 
-type ListUserResponse = Pick<User, 'id' | 'username' | 'email'>;
+type FindAllUserResponse = Pick<User, 'id' | 'username' | 'email'>;
 
 export class FindAllUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
-  async execute(): Promise<ListUserResponse[]> {
+  async execute(): Promise<FindAllUserResponse[]> {
     const users = await this.userRepository.findAll();
 
     return users.map(user => {
@@ -14,7 +14,7 @@ export class FindAllUserUseCase {
         id: user.id,
         username: user.username,
         email: user.email,
-      } as ListUserResponse;
+      } as FindAllUserResponse;
     });
   }
 }

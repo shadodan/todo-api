@@ -1,11 +1,9 @@
-import { singleton } from 'tsyringe';
 import { createTransport } from 'nodemailer';
 
 import email from '../../../config/email';
 import { IEmailProvider } from '../../../core/application/providers/email.provider';
 import { recoverPasswordMessage } from '../../../core/domain/assets/email/recover-password-message';
 
-@singleton()
 export class NodemailerEmailProvider implements IEmailProvider {
   private emailConfig = email();
   private transport = createTransport({
