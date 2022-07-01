@@ -1,8 +1,7 @@
-import { container } from 'tsyringe';
 import { NextFunction, Request, Response } from 'express';
 
 import { AppError } from '../../core/domain/errors/app.error';
-import { IJwtProvider } from '../../core/application/providers/jwt.provider';
+import { JsonwebtokenJwtProvider } from '../providers/jwt/jsonwebtoken-jwt.provider';
 
 export function ensureAuth(
   req: Request,
@@ -18,7 +17,7 @@ export function ensureAuth(
   const [, token] = authToken.split(' ');
 
   try {
-    const jwtProvider = container.resolve<IJwtProvider>('JwtProvider');
+    const jwtProvider = new JsonwebtokenJwtProvider();
 
     req.token = jwtProvider.verify(token);
 

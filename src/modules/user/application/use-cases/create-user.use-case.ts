@@ -1,18 +1,13 @@
-import { inject, injectable } from 'tsyringe';
-
-import { ICreateUserDto } from '../dto/create-user.dto';
 import { User } from '../../core/entities/user.entity';
+import { ICreateUserDto } from '../dto/create-user.dto';
 import { DomainError } from '../../../../core/domain/errors/domain.error';
 import { IUserRepository } from '../../core/repositories/user.repository';
 import { createUserValidator } from '../validators/create-user.validator';
 import { IEncoderProvider } from '../../../../core/application/providers/encoder.provider';
 
-@injectable()
 export class CreateUserUseCase {
   constructor(
-    @inject('UserRepository')
     private userRepository: IUserRepository,
-    @inject('EncoderProvider')
     private encoderProvider: IEncoderProvider
   ) {}
 

@@ -1,14 +1,13 @@
-import { container } from 'tsyringe';
 import { NextFunction, Request, Response } from 'express';
 
-import { LoginService } from '../../../application/services/login.service';
-import { RecoverPasswordService } from '../../../application/services/recover-password.service';
-import { ChangeForgottenPasswordService } from '../../../application/services/change-forgotten-password.service';
+import { loginFactory } from '../../factories/login.factory';
+import { recoverPasswordFactory } from '../../factories/recover-password.factory';
+import { changeForgottenPasswordFactory } from '../../factories/change-forgotten-password.factory';
 
 export class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const service = container.resolve(LoginService);
+      const service = loginFactory();
 
       const input = req.body;
 
@@ -24,7 +23,7 @@ export class AuthController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const service = container.resolve(RecoverPasswordService);
+      const service = recoverPasswordFactory();
 
       const { email } = req.body;
 
@@ -40,7 +39,7 @@ export class AuthController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const service = container.resolve(ChangeForgottenPasswordService);
+      const service = changeForgottenPasswordFactory();
 
       const input = req.body;
       const { id, token } = req.params;

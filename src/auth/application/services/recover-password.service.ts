@@ -1,5 +1,3 @@
-import { inject, injectable } from 'tsyringe';
-
 import api from '../../../config/api';
 import { AppError } from '../../../core/domain/errors/app.error';
 import { DomainError } from '../../../core/domain/errors/domain.error';
@@ -7,14 +5,10 @@ import { IJwtProvider } from '../../../core/application/providers/jwt.provider';
 import { IEmailProvider } from '../../../core/application/providers/email.provider';
 import { IUserRepository } from '../../../modules/user/core/repositories/user.repository';
 
-@injectable()
 export class RecoverPasswordService {
   constructor(
-    @inject('UserRepository')
     private userRepository: IUserRepository,
-    @inject('JwtProvider')
     private jwtProvider: IJwtProvider,
-    @inject('EmailProvider')
     private emailProvider: IEmailProvider
   ) {}
 

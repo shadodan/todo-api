@@ -1,16 +1,10 @@
-import { inject, injectable } from 'tsyringe';
-
 import { User } from '../../core/entities/user.entity';
 import { IUserRepository } from '../../core/repositories/user.repository';
 
 type FindUserResponse = Omit<User, 'password' | 'createdAt' | 'updatedAt'>;
 
-@injectable()
 export class FindOneUserUseCase {
-  constructor(
-    @inject('UserRepository')
-    private userRepository: IUserRepository
-  ) {}
+  constructor(private userRepository: IUserRepository) {}
 
   async execute(id: string): Promise<FindUserResponse> {
     const user = await this.userRepository.findOne(id);

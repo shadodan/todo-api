@@ -1,5 +1,3 @@
-import { inject, injectable } from 'tsyringe';
-
 import { IChangePasswordDto } from '../dto/change-password.dto';
 import { DomainError } from '../../../core/domain/errors/domain.error';
 import { IJwtProvider } from '../../../core/application/providers/jwt.provider';
@@ -7,14 +5,10 @@ import { IEncoderProvider } from '../../../core/application/providers/encoder.pr
 import { IUserRepository } from '../../../modules/user/core/repositories/user.repository';
 import { changeForgottenPasswordValidator } from '../validators/change-forgotten-password.validator';
 
-@injectable()
 export class ChangeForgottenPasswordService {
   constructor(
-    @inject('UserRepository')
     private userRepository: IUserRepository,
-    @inject('EncoderProvider')
     private encoderProvider: IEncoderProvider,
-    @inject('JwtProvider')
     private jwtProvider: IJwtProvider
   ) {}
 

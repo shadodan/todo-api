@@ -1,5 +1,3 @@
-import { inject, injectable } from 'tsyringe';
-
 import { ILoginDto } from '../dto/login.dto';
 import { AppError } from '../../../core/domain/errors/app.error';
 import { DomainError } from '../../../core/domain/errors/domain.error';
@@ -12,14 +10,10 @@ type LoginResponse = {
   token: string;
 };
 
-@injectable()
 export class LoginService {
   constructor(
-    @inject('UserRepository')
     private userRepository: IUserRepository,
-    @inject('EncoderProvider')
     private encoderProvider: IEncoderProvider,
-    @inject('JwtProvider')
     private jwtProvider: IJwtProvider
   ) {}
 
