@@ -7,7 +7,7 @@ export class Task extends DefaultEntity {
   categoryId: string;
   criticalityId: string;
   title: string;
-  description: string;
+  description?: string;
   deadline: Date;
   isFinished: boolean;
 

@@ -11,11 +11,11 @@ datasource db {
 }
 
 model User {
-  id       String  @id
+  id       String @id @map("id_user")
   username String
-  email    String  @unique
+  email    String @unique
   password String
-  phone    String  @unique
+  phone    String @unique
 
   tasks          Task[]
   taskUser       TaskUser[]
@@ -30,7 +30,7 @@ model User {
 }
 
 model Friendship {
-  id       String  @id
+  id       String  @id @map("id_friendship")
   approved Boolean
 
   userOne   User   @relation(fields: [userOneId], references: [id], name: "userOne")
@@ -46,7 +46,7 @@ model Friendship {
 }
 
 model Category {
-  id     String @id
+  id     String @id @map("id_category")
   name   String
   colour String
 
@@ -61,17 +61,17 @@ model Category {
   @@map("categories")
 }
 
-model DefaultCriticality {
-  id          String @id
-  criticality String
+model DefaultCriticalityLevel {
+  id          String @id @map("id_default_criticality_level")
+  description String
 
   tasks Task[]
 
-  @@map("default_criticality")
+  @@map("default_criticality_level")
 }
 
 model Task {
-  id          String    @id
+  id          String    @id @map("id_task")
   title       String
   description String
   deadline    DateTime?
@@ -83,7 +83,7 @@ model Task {
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String   @map("id_category")
 
-  criticality   DefaultCriticality @relation(fields: [criticalityId], references: [id])
+  criticality   DefaultCriticalityLevel @relation(fields: [criticalityId], references: [id])
   criticalityId String             @map("id_default_criticality")
 
   taskUser TaskUser[]

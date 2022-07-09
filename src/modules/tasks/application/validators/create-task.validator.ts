@@ -1,6 +1,7 @@
 import { ICreateTaskDto } from '../dto/create-task.dto';
 import { AppError } from '../../../../core/domain/errors/app.error';
 import { Category } from '../../../category/core/entities/category.entity';
+import { DomainError } from '../../../../core/domain/errors/domain.error';
 
 export function createTaskValidator(
   { criticalityId, deadline, title, description, categoryId }: ICreateTaskDto,
@@ -9,7 +10,7 @@ export function createTaskValidator(
 ): void {
   // Criticality level validation
   if (!criticalityId && !criticalityIds.includes(criticalityId)) {
-    throw new AppError('Invalid criticality level');
+    throw new DomainError('Invalid criticality level');
   }
 
   // Deadline validation
@@ -23,12 +24,12 @@ export function createTaskValidator(
   }
 
   // Description validation
-  if (!description || description.trim().length > 255) {
+  if (description && description.trim().length > 255) {
     throw new AppError('Invalid description');
   }
 
   // Category validation
   if (!categoryId || !category) {
-    throw new AppError('Invalid category');
+    throw new DomainError('Invalid category');
   }
 }

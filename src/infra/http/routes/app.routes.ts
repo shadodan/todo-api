@@ -6,12 +6,15 @@ import { domainErrorHandler } from '../../errors/domain-error.handler';
 import { authRoutes } from '../../../auth/infra/http/routes/auth.routes';
 import { userRoutes } from '../../../modules/user/infra/http/routes/user.routes';
 import { categoryRoutes } from '../../../modules/category/infra/http/routes/category.routes';
+import { criticalityLevelRoutes } from '../../../modules/criticality-level/infra/http/routes/criticality-level.routes';
 
 const appRoutes = Router();
 
 appRoutes.use('/user', userRoutes);
 
 appRoutes.use('/auth', authRoutes);
+
+appRoutes.use('/criticality-level', criticalityLevelRoutes);
 
 appRoutes.use('/category', ensureAuth, categoryRoutes);
 
