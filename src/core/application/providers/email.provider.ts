@@ -1,6 +1,8 @@
 export interface IEmailProvider {
-  sendRecoverPasswordEmail(
-    email: string,
-    recoverPasswordLink: string
+  sendEmail(
+    from: string,
+    to: string,
+    subject: string,
+    html: string
   ): Promise<void>;
 }
