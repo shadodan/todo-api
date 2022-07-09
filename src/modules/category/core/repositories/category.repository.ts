@@ -5,7 +5,7 @@ export interface ICategoryRepository {
 
   findAllByUser(userId: string): Promise<Category[]>;
 
-  findOne(id: string): Promise<Category | null>;
+  findOne(id: string, userId: string): Promise<Category | null>;
 
   update(id: string, data: Partial<Category>): Promise<void>;
 

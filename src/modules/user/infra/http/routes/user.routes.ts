@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { UserController } from '../controllers/user.controller';
-import { ensureAuth } from '../../../../../infra/middlewares/ensureAuth';
+import { ensureAuth } from '../../../../../infra/http/middlewares/ensureAuth';
 
 const userRoutes = Router();
 const userController = new UserController();

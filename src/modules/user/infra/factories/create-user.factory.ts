@@ -1,5 +1,5 @@
 import { PrismaUserRepository } from '../prisma/prisma-user.repository';
-import { CreateUserUseCase } from '../../application/use-cases/create-user.use-case';
+import { CreateUserUseCase } from '../../use-cases/create-user.use-case';
 import { BcryptEncoderProvider } from '../../../../infra/providers/encoder/bcrypt-encoder.provider';
 
 export function createUserFactory(): CreateUserUseCase {

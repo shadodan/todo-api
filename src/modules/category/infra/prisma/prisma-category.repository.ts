@@ -13,8 +13,8 @@ export class PrismaCategoryRepository implements ICategoryRepository {
     return this.repository.findMany({ where: { userId } });
   }
 
-  async findOne(id: string): Promise<Category | null> {
-    return this.repository.findUnique({ where: { id } });
+  async findOne(id: string, userId: string): Promise<Category | null> {
+    return this.repository.findFirst({ where: { id, userId } });
   }
 
   async update(id: string, data: Partial<Category>): Promise<void> {

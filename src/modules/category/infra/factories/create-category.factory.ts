@@ -1,4 +1,4 @@
-import { CreateCategoryUseCase } from '../../application/use-cases/create-category.use-case';
+import { CreateCategoryUseCase } from '../../use-cases/create-category.use-case';
 import { PrismaCategoryRepository } from '../prisma/prisma-category.repository';
 
 export function createCategoryFactory(): CreateCategoryUseCase {

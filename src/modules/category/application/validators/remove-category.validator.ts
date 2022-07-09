@@ -1,13 +1,13 @@
 import { Category } from '../../core/entities/category.entity';
-import { User } from '../../../user/core/entities/user.entity';
 import { AppError } from '../../../../core/domain/errors/app.error';
+import { UserToken } from '../../../../auth/core/interfaces/user-token';
 
 export function removeCategoryValidator(
-  { id: loggedUserId }: User,
-  { user: { id: categoryOwnerId } }: Category
+  { id: loggedUserId }: UserToken,
+  { userId }: Category
 ): void {
   // Authentication validation
-  if (loggedUserId !== categoryOwnerId) {
+  if (loggedUserId !== userId) {
     throw new AppError("You cannot change another user's category");
   }
 }

@@ -1,9 +1,7 @@
 import * as bcrypt from 'bcrypt';
-import { singleton } from 'tsyringe';
 
 import { IEncoderProvider } from '../../../core/application/providers/encoder.provider';
 
-@singleton()
 export class BcryptEncoderProvider implements IEncoderProvider {
   private readonly rounds: number = 8;
 

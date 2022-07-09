@@ -6,14 +6,14 @@ import { DomainError } from '../../../../core/domain/errors/domain.error';
 export function updateUserValidator(
   id: string,
   data: IUpdateUserDto,
-  user: UserToken
+  { id: loggedUserId }: UserToken
 ): void {
   // Only the authenticated user can update itself
-  if (user.id !== id) {
+  if (loggedUserId !== id) {
     throw new DomainError('You cannot update another user');
   }
 
-  // Excluded because they will have special services
+  // Excluded because they will have special use-cases
   if (data.password || data.phone || data.email) {
     throw new AppError('Invalid inputs, try another method', 303);
   }
