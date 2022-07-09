@@ -1,9 +1,9 @@
-import { CriticalityLevelEntity } from '../entities/criticality-level.entity';
+import { CriticalityLevel } from '../entities/criticality-level.entity';
 
 export interface ICriticalityLevelRepository {
-  findAll(): Promise<CriticalityLevelEntity[]>;
+  findAll(): Promise<CriticalityLevel[]>;
 
-  findOne(id: string): Promise<CriticalityLevelEntity | null>;
+  findOne(id: string): Promise<CriticalityLevel | null>;
 
-  findCriticalityIds(): Promise<string[]>;
+  findCriticalityLevelIds(): Promise<string[]>;
 }

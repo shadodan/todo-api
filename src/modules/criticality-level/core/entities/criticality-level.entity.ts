@@ -1,6 +1,6 @@
 import { generateUuidHelper } from '../../../../core/application/helpers/generate-uuid.helper';
 
-export class CriticalityLevelEntity {
+export class CriticalityLevel {
   readonly id: string;
   description: string;
 

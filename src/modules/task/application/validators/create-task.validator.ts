@@ -4,7 +4,13 @@ import { Category } from '../../../category/core/entities/category.entity';
 import { DomainError } from '../../../../core/domain/errors/domain.error';
 
 export function createTaskValidator(
-  { criticalityId, deadline, title, description, categoryId }: ICreateTaskDto,
+  {
+    criticalityLevel: { id: criticalityId },
+    deadline,
+    title,
+    description,
+    category: { id: categoryId },
+  }: ICreateTaskDto,
   category: Category | null,
   criticalityIds: string[]
 ): void {
