@@ -1,15 +1,15 @@
-import { ICategoryRepository } from '../core/repositories/category.repository';
-import { IUpdateCategoryDto } from '../application/dto/update-category.dto';
-import { updateCategoryValidator } from '../application/validators/update-category.validator';
+import { ITaskRepository } from '../core/repositories/task.repository';
+import { IUpdateTaskDto } from '../application/dto/update-task.dto';
+import { updateTaskValidator } from '../application/validators/update-task.validator';
 import { DomainError } from '../../../core/domain/errors/domain.error';
 import { UserToken } from '../../../auth/core/interfaces/user-token';
 
 export class UpdateCategoryUseCase {
-  constructor(private categoryRepository: ICategoryRepository) {}
+  constructor(private categoryRepository: ITaskRepository) {}
 
   async execute(
     id: string,
-    data: IUpdateCategoryDto,
+    data: IUpdateTaskDto,
     user: UserToken
   ): Promise<void> {
     const category = await this.categoryRepository.findOne(id, user.id);
@@ -18,7 +18,7 @@ export class UpdateCategoryUseCase {
       throw new DomainError('Category not found');
     }
 
-    updateCategoryValidator(data, category, user);
+    updateTaskValidator(data, user, category);
 
     await this.categoryRepository.update(id, data);
   }

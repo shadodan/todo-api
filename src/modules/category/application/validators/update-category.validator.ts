@@ -5,8 +5,8 @@ import { UserToken } from '../../../../auth/core/interfaces/user-token';
 
 export function updateCategoryValidator(
   { name, colour }: IUpdateCategoryDto,
-  { id: loggedUserId }: UserToken,
-  { userId }: Category
+  { userId }: Category,
+  { id: loggedUserId }: UserToken
 ): void {
   // Category name validation
   if (name && name.trim().length > 255) {
