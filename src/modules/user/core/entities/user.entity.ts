@@ -7,6 +7,7 @@ export class User extends DefaultEntity {
   email: string;
   phone: string;
   password: string;
+  image?: string;
 
   constructor() {
     super();

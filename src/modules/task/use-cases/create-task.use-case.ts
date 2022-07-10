@@ -32,8 +32,8 @@ export class CreateTaskUseCase {
       ownerId: user.id,
       categoryId: data.category.id,
       criticalityLevelId: data.criticalityLevel.id,
-      category: undefined,
-      criticalityLevel: undefined,
+      category: { connect: { id: data.category.id } },
+      criticalityLevel: { connect: { id: data.criticalityLevel.id } },
     });
 
     await this.taskRepository.create(task);

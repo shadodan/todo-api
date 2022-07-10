@@ -5,7 +5,8 @@ export class Task extends DefaultEntity {
   readonly id: string;
   ownerId: string;
   categoryId: string;
-  criticalityId: string;
+  criticalityLevelId: string;
+  projectId: string;
   title: string;
   description?: string;
   deadline: Date;

@@ -1,8 +1,8 @@
-import { FindOneCategoryUseCase } from '../../use-cases/find-one-category.use-case';
-import { PrismaCategoryRepository } from '../prisma/prisma-category.repository';
+import { FindOneTaskUseCase } from '../../use-cases/find-one-task.use-case';
+import { PrismaTaskRepository } from '../prisma/prisma-task.repository';
 
-export function findOneCategoryFactory(): FindOneCategoryUseCase {
-  const repository = new PrismaCategoryRepository();
+export function findOneCategoryFactory(): FindOneTaskUseCase {
+  const repository = new PrismaTaskRepository();
 
-  return new FindOneCategoryUseCase(repository);
+  return new FindOneTaskUseCase(repository);
 }

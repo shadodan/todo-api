@@ -5,14 +5,20 @@ import { UserToken } from '../../../../auth/core/interfaces/user-token';
 import { Category } from '../../../category/core/entities/category.entity';
 
 export function updateTaskValidator(
-  { title, description, categoryId, deadline, criticalityId }: IUpdateTaskDto,
+  {
+    title,
+    description,
+    category: categoryToUpdate,
+    deadline,
+    criticalityLevel,
+  }: IUpdateTaskDto,
   { ownerId }: Task,
-  category: Category,
+  category: Category | null,
   criticalityIds: string[],
   { id: loggedUserId }: UserToken
 ): void {
   // Criticality level validation
-  if (criticalityId && !criticalityIds.includes(criticalityId)) {
+  if (criticalityLevel && !criticalityIds.includes(criticalityLevel.id)) {
     throw new AppError('Invalid criticality level');
   }
 
@@ -32,7 +38,7 @@ export function updateTaskValidator(
   }
 
   // Category validation
-  if (categoryId && !category) {
+  if (categoryToUpdate && !category) {
     throw new AppError('Invalid category');
   }
 

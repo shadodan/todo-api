@@ -11,17 +11,19 @@ datasource db {
 }
 
 model User {
-  id       String @id @map("id_user")
+  id       String  @id @map("id_user")
   username String
-  email    String @unique
+  email    String  @unique
   password String
-  phone    String @unique
+  phone    String  @unique
+  image    String?
 
   tasks          Task[]
-  taskUser       TaskUser[]
   categories     Category[]
-  friendshipsOne Friendship[] @relation("userOne")
-  friendshipsTwo Friendship[] @relation("userTwo")
+  Project        Project[]
+  friendshipsOne Friendship[]  @relation("userOne")
+  friendshipsTwo Friendship[]  @relation("userTwo")
+  userProject    UserProject[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
@@ -30,8 +32,9 @@ model User {
 }
 
 model Friendship {
-  id       String  @id @map("id_friendship")
+  id       String    @id @map("id_friendship")
   approved Boolean
+  since    DateTime?
 
   userOne   User   @relation(fields: [userOneId], references: [id], name: "userOne")
   userOneId String @map("id_user_one")
@@ -73,7 +76,7 @@ model DefaultCriticalityLevel {
 model Task {
   id          String    @id @map("id_task")
   title       String
-  description String
+  description String?
   deadline    DateTime?
   isFinished  Boolean   @map("is_finished")
 
@@ -83,24 +86,58 @@ model Task {
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String   @map("id_category")
 
-  criticality   DefaultCriticalityLevel @relation(fields: [criticalityId], references: [id])
-  criticalityId String             @map("id_default_criticality")
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?  @map("id_project")
 
-  taskUser TaskUser[]
+  criticalityLevel   DefaultCriticalityLevel @relation(fields: [criticalityLevelId], references: [id])
+  criticalityLevelId String                  @map("id_default_criticality_level")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
+  taskProject TaskProject[]
+
   @@map("tasks")
 }
 
-model TaskUser {
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @map("id_user")
+model Project {
+  id           String    @id @map("id_project")
+  title        String
+  deadline     DateTime
+  isFinished   Boolean   @map("is_finished")
+  finishedDate DateTime? @map("finished_date")
 
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String @map("id_owner")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  tasks       Task[]
+  userProject UserProject[]
+  taskProject TaskProject[]
+
+  @@map("projects")
+}
+
+model TaskProject {
   task   Task   @relation(fields: [taskId], references: [id])
   taskId String @map("id_task")
 
-  @@id([userId, taskId])
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String  @map("id_project")
+
+  @@id([taskId, projectId])
+  @@map("aux_tasks_projects")
+}
+
+model UserProject {
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("id_user")
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String  @map("id_project")
+
+  @@id([userId, projectId])
   @@map("aux_tasks_users")
 }

@@ -1,8 +1,8 @@
-import { RemoveCategoryUseCase } from '../../use-cases/remove-category.use-case';
-import { PrismaCategoryRepository } from '../prisma/prisma-category.repository';
+import { RemoveTaskUseCase } from '../../use-cases/remove-task.use-case';
+import { PrismaTaskRepository } from '../prisma/prisma-task.repository';
 
-export function removeCategoryFactory(): RemoveCategoryUseCase {
-  const repository = new PrismaCategoryRepository();
+export function removeCategoryFactory(): RemoveTaskUseCase {
+  const repository = new PrismaTaskRepository();
 
-  return new RemoveCategoryUseCase(repository);
+  return new RemoveTaskUseCase(repository);
 }

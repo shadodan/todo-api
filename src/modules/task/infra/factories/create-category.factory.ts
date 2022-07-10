@@ -1,8 +1,8 @@
 import { CreateTaskUseCase } from '../../use-cases/create-task.use-case';
-import { PrismaCategoryRepository } from '../prisma/prisma-category.repository';
+import { PrismaTaskRepository } from '../prisma/prisma-task.repository';
 
 export function createCategoryFactory(): CreateTaskUseCase {
-  const repository = new PrismaCategoryRepository();
+  const repository = new PrismaTaskRepository();
 
   return new CreateTaskUseCase(repository);
 }

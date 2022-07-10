@@ -3,18 +3,18 @@ import { removeTaskValidator } from '../application/validators/remove-task.valid
 import { DomainError } from '../../../core/domain/errors/domain.error';
 import { UserToken } from '../../../auth/core/interfaces/user-token';
 
-export class RemoveCategoryUseCase {
-  constructor(private categoryRepository: ITaskRepository) {}
+export class RemoveTaskUseCase {
+  constructor(private taskRepository: ITaskRepository) {}
 
   async execute(id: string, user: UserToken): Promise<void> {
-    const category = await this.categoryRepository.findOne(id, user.id);
+    const task = await this.taskRepository.findOne(id, user.id);
 
-    if (!category) {
-      throw new DomainError('Category not found');
+    if (!task) {
+      throw new DomainError('Task not found');
     }
 
-    removeTaskValidator(user, category);
+    removeTaskValidator(user, task);
 
-    await this.categoryRepository.remove(id);
+    await this.taskRepository.remove(id);
   }
 }

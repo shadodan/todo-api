@@ -3,4 +3,5 @@ export interface ICreateUserDto {
   email: string;
   phone: string;
   password: string;
+  image?: string;
 }

@@ -1,8 +1,8 @@
 import { FindAllTaskByUserUseCase } from '../../use-cases/find-all-task-by-user.use-case';
-import { PrismaCategoryRepository } from '../prisma/prisma-category.repository';
+import { PrismaTaskRepository } from '../prisma/prisma-task.repository';
 
 export function findAllCategoryByUserFactory(): FindAllTaskByUserUseCase {
-  const repository = new PrismaCategoryRepository();
+  const repository = new PrismaTaskRepository();
 
   return new FindAllTaskByUserUseCase(repository);
 }

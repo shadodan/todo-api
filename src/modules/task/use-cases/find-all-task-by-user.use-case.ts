@@ -4,7 +4,12 @@ import { UserToken } from '../../../auth/core/interfaces/user-token';
 
 type FindAllTaskResponse = Pick<
   Task,
-  'id' | 'title' | 'categoryId' | 'criticalityId' | 'deadline' | 'isFinished'
+  | 'id'
+  | 'title'
+  | 'categoryId'
+  | 'criticalityLevelId'
+  | 'deadline'
+  | 'isFinished'
 >;
 
 export class FindAllTaskByUserUseCase {
@@ -18,7 +23,7 @@ export class FindAllTaskByUserUseCase {
       return {
         id: task.id,
         categoryId: task.categoryId,
-        criticalityId: task.criticalityId,
+        criticalityLevelId: task.criticalityLevelId,
         title: task.title,
         deadline: task.deadline,
         isFinished: task.isFinished,

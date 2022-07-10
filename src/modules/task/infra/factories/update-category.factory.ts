@@ -1,8 +1,8 @@
-import { UpdateCategoryUseCase } from '../../use-cases/update-category.use-case';
-import { PrismaCategoryRepository } from '../prisma/prisma-category.repository';
+import { UpdateTaskUseCase } from '../../use-cases/update-task.use-case';
+import { PrismaTaskRepository } from '../prisma/prisma-task.repository';
 
-export function updateCategoryFactory(): UpdateCategoryUseCase {
-  const repository = new PrismaCategoryRepository();
+export function updateCategoryFactory(): UpdateTaskUseCase {
+  const repository = new PrismaTaskRepository();
 
-  return new UpdateCategoryUseCase(repository);
+  return new UpdateTaskUseCase(repository);
 }
