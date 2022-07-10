@@ -1,6 +1,8 @@
 import { prisma } from '../../../../infra/database/prisma/client';
 import { ICategoryRepository } from '../../core/repositories/category.repository';
 import { Category } from '../../core/entities/category.entity';
+import { IFindAllCategoryResponse } from '../../core/interfaces/find-all-category-response.interface';
+import { IFindOneCategoryResponse } from '../../core/interfaces/find-one-category-response.interface';
 
 export class PrismaCategoryRepository implements ICategoryRepository {
   private repository = prisma.category;
@@ -9,11 +11,22 @@ export class PrismaCategoryRepository implements ICategoryRepository {
     await this.repository.create({ data });
   }
 
-  async findAllByUser(userId: string): Promise<Category[]> {
-    return this.repository.findMany({ where: { userId } });
+  async findAllByUser(userId: string): Promise<IFindAllCategoryResponse[]> {
+    return this.repository.findMany({
+      where: { userId },
+    }) as unknown as IFindAllCategoryResponse[];
   }
 
-  async findOne(id: string, userId: string): Promise<Category | null> {
+  async findOne(
+    id: string,
+    userId: string
+  ): Promise<IFindOneCategoryResponse | null> {
+    return this.repository.findFirst({
+      where: { id, userId },
+    }) as unknown as IFindOneCategoryResponse;
+  }
+
+  async findById(id: string, userId: string): Promise<Category | null> {
     return this.repository.findFirst({ where: { id, userId } });
   }
 

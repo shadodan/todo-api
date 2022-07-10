@@ -1,4 +1,6 @@
 import { Task } from '../entities/task.entity';
+import { IFindAllTaskResponse } from '../interfaces/find-all-task-response.interface';
+import { IFindOneTaskResponse } from '../interfaces/find-one-task-response.interface';
 
 export type FindByParamsOptions = {
   ownerId?: string;
@@ -16,9 +18,11 @@ export interface ITaskRepository {
   findAllByUser(
     findOptions: FindByParamsOptions,
     userId: string
-  ): Promise<Task[]>;
+  ): Promise<IFindAllTaskResponse[]>;
 
-  findOne(id: string, userId: string): Promise<Task | null>;
+  findOne(id: string, userId: string): Promise<IFindOneTaskResponse | null>;
+
+  findById(id: string, userId: string): Promise<Task | null>;
 
   update(id: string, data: Partial<Task>): Promise<void>;
 

@@ -7,7 +7,7 @@ export class RemoveTaskUseCase {
   constructor(private taskRepository: ITaskRepository) {}
 
   async execute(id: string, user: UserToken): Promise<void> {
-    const task = await this.taskRepository.findOne(id, user.id);
+    const task = await this.taskRepository.findById(id, user.id);
 
     if (!task) {
       throw new DomainError('Task not found');

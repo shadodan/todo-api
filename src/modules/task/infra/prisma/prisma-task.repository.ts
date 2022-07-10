@@ -4,6 +4,8 @@ import {
   ITaskRepository,
 } from '../../core/repositories/task.repository';
 import { Task } from '../../core/entities/task.entity';
+import { IFindAllTaskResponse } from '../../core/interfaces/find-all-task-response.interface';
+import { IFindOneTaskResponse } from '../../core/interfaces/find-one-task-response.interface';
 
 export class PrismaTaskRepository implements ITaskRepository {
   private repository = prisma.task;
@@ -27,17 +29,49 @@ export class PrismaTaskRepository implements ITaskRepository {
   async findAllByUser(
     findOptions: FindByParamsOptions,
     userId: string
-  ): Promise<Task[]> {
+  ): Promise<IFindAllTaskResponse[]> {
     let where = {};
 
     for (const findOption of Object.entries(findOptions)) {
-      where = { [findOption[0]]: findOption[1] };
+      where = { ...where, [findOption[0]]: findOption[1] };
     }
 
-    return this.repository.findMany({ where: { ownerId: userId, ...where } });
+    return this.repository.findMany({
+      where: { ownerId: userId, ...where },
+      select: {
+        id: true,
+        category: { select: { name: true, colour: true } },
+        criticalityLevel: { select: { description: true } },
+        title: true,
+        description: true,
+        isFinished: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    }) as unknown as IFindAllTaskResponse[];
   }
 
-  async findOne(id: string, userId: string): Promise<Task | null> {
+  async findOne(
+    id: string,
+    userId: string
+  ): Promise<IFindOneTaskResponse | null> {
+    return this.repository.findFirst({
+      where: { id, ownerId: userId },
+      select: {
+        id: true,
+        category: { select: { name: true, colour: true } },
+        criticalityLevel: { select: { description: true } },
+        project: true,
+        title: true,
+        description: true,
+        isFinished: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    }) as unknown as IFindOneTaskResponse | null;
+  }
+
+  async findById(id: string, userId: string): Promise<Task | null> {
     return this.repository.findFirst({ where: { id, ownerId: userId } });
   }
 

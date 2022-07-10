@@ -18,14 +18,14 @@ export class UpdateTaskUseCase {
     data: IUpdateTaskDto,
     user: UserToken
   ): Promise<void> {
-    const task = await this.taskRepository.findOne(id, user.id);
+    const task = await this.taskRepository.findById(id, user.id);
 
     if (!task) {
       throw new DomainError('Task not found');
     }
 
     const category = data.category
-      ? await this.categoryRepository.findOne(data.category.id, user.id)
+      ? await this.categoryRepository.findById(data.category.id, user.id)
       : null;
 
     const criticalityLevelIds =

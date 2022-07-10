@@ -1,6 +1,8 @@
 import { User } from '../../core/entities/user.entity';
 import { prisma } from '../../../../infra/database/prisma/client';
 import { IUserRepository } from '../../core/repositories/user.repository';
+import { IFindAllUserResponse } from '../../core/interfaces/find-all-user-response.interface';
+import { IFindOneUserResponse } from '../../core/interfaces/find-one-user-response.interface';
 
 export class PrismaUserRepository implements IUserRepository {
   private repository = prisma.user;
@@ -9,12 +11,14 @@ export class PrismaUserRepository implements IUserRepository {
     await this.repository.create({ data });
   }
 
-  async findAll(): Promise<User[]> {
-    return this.repository.findMany();
+  async findAll(): Promise<IFindAllUserResponse[]> {
+    return this.repository.findMany() as unknown as IFindAllUserResponse[];
   }
 
-  async findOne(id: string): Promise<User | null> {
-    return this.repository.findUnique({ where: { id } });
+  async findOne(id: string): Promise<IFindOneUserResponse | null> {
+    return this.repository.findUnique({
+      where: { id },
+    }) as unknown as IFindOneUserResponse | null;
   }
 
   async update(id: string, data: User): Promise<void> {

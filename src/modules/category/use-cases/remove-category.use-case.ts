@@ -7,7 +7,7 @@ export class RemoveCategoryUseCase {
   constructor(private categoryRepository: ICategoryRepository) {}
 
   async execute(id: string, user: UserToken): Promise<void> {
-    const category = await this.categoryRepository.findOne(id, user.id);
+    const category = await this.categoryRepository.findById(id, user.id);
 
     if (!category) {
       throw new DomainError('Category not found');

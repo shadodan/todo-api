@@ -12,7 +12,7 @@ export class UpdateCategoryUseCase {
     data: IUpdateCategoryDto,
     user: UserToken
   ): Promise<void> {
-    const category = await this.categoryRepository.findOne(id, user.id);
+    const category = await this.categoryRepository.findById(id, user.id);
 
     if (!category) {
       throw new DomainError('Category not found');

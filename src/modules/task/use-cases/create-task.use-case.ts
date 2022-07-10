@@ -14,7 +14,7 @@ export class CreateTaskUseCase {
   ) {}
 
   async execute(data: ICreateTaskDto, user: UserToken): Promise<void> {
-    const category = await this.categoryRepository.findOne(
+    const category = await this.categoryRepository.findById(
       data.category.id,
       user.id
     );
