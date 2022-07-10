@@ -91,11 +91,14 @@ model Task {
 
   criticalityLevel   DefaultCriticalityLevel @relation(fields: [criticalityLevelId], references: [id])
   criticalityLevelId String                  @map("id_default_criticality_level")
+  
+  dependencyTask Task? @relation(fields: [dependencyTaskId], references: [id])
+  dependencyTaskId String? @map("id_dependency_task")
+  
+  dependencyTasks Task[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
-
-  taskProject TaskProject[]
 
   @@map("tasks")
 }
@@ -104,6 +107,7 @@ model Project {
   id           String    @id @map("id_project")
   title        String
   deadline     DateTime
+  description String?
   isFinished   Boolean   @map("is_finished")
   finishedDate DateTime? @map("finished_date")
 
@@ -115,20 +119,8 @@ model Project {
 
   tasks       Task[]
   userProject UserProject[]
-  taskProject TaskProject[]
 
   @@map("projects")
-}
-
-model TaskProject {
-  task   Task   @relation(fields: [taskId], references: [id])
-  taskId String @map("id_task")
-
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId String  @map("id_project")
-
-  @@id([taskId, projectId])
-  @@map("aux_tasks_projects")
 }
 
 model UserProject {
