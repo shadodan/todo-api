@@ -26,14 +26,13 @@ export class CreateTaskUseCase {
 
     const task = new Task();
 
-    // TODO: Verificar se o object.assign irá funcionar neste caso com chaves estrangeiras
     Object.assign(task, {
       ...data,
       ownerId: user.id,
       categoryId: data.category.id,
+      projectId: data.project?.id,
       criticalityLevelId: data.criticalityLevel.id,
-      category: { connect: { id: data.category.id } },
-      criticalityLevel: { connect: { id: data.criticalityLevel.id } },
+      isFinished: false,
     });
 
     await this.taskRepository.create(task);

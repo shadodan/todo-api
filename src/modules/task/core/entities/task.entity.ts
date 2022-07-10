@@ -6,10 +6,10 @@ export class Task extends DefaultEntity {
   ownerId: string;
   categoryId: string;
   criticalityLevelId: string;
-  projectId: string;
+  projectId: string | null;
   title: string;
-  description?: string;
-  deadline: Date;
+  description: string | null;
+  deadline: Date | null;
   isFinished: boolean;
 
   constructor() {

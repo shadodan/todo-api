@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
-import { createCategoryFactory } from '../../factories/create-category.factory';
-import { findAllCategoryByUserFactory } from '../../factories/find-all-category-by-user.factory';
-import { findOneCategoryFactory } from '../../factories/find-one-category.factory';
-import { updateCategoryFactory } from '../../factories/update-category.factory';
-import { removeCategoryFactory } from '../../factories/remove-category.factory';
+import { createTaskFactory } from '../../factories/create-task.factory';
+import { findAllTaskByUserFactory } from '../../factories/find-all-task-by-user.factory';
+import { findOneTaskFactory } from '../../factories/find-one-task.factory';
+import { updateTaskFactory } from '../../factories/update-task.factory';
+import { removeTaskFactory } from '../../factories/remove-task.factory';
 
-export class CategoryController {
+export class TaskController {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const useCase = createCategoryFactory();
+      const useCase = createTaskFactory();
 
       const data = req.body;
       const { user } = req.token.sub;
@@ -25,11 +25,12 @@ export class CategoryController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const useCase = findAllCategoryByUserFactory();
+      const useCase = findAllTaskByUserFactory();
 
+      const { query } = req;
       const { user } = req.token.sub;
 
-      res.json(await useCase.execute(user));
+      res.json(await useCase.execute(query, user));
     } catch (err) {
       next(err);
     }
@@ -41,7 +42,7 @@ export class CategoryController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const useCase = findOneCategoryFactory();
+      const useCase = findOneTaskFactory();
 
       const { id } = req.params;
       const { user } = req.token.sub;
@@ -54,7 +55,7 @@ export class CategoryController {
 
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const useCase = updateCategoryFactory();
+      const useCase = updateTaskFactory();
 
       const data = req.body;
       const { id } = req.params;
@@ -68,7 +69,7 @@ export class CategoryController {
 
   async remove(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const useCase = removeCategoryFactory();
+      const useCase = removeTaskFactory();
 
       const { id } = req.params;
       const { user } = req.token.sub;

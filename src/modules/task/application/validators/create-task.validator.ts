@@ -20,7 +20,7 @@ export function createTaskValidator(
   }
 
   // Deadline validation
-  if (!deadline || deadline < new Date()) {
+  if (deadline && deadline < new Date()) {
     throw new AppError('Invalid deadline');
   }
 

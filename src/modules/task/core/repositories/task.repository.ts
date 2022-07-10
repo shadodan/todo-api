@@ -13,9 +13,10 @@ export type FindByParamsOptions = {
 export interface ITaskRepository {
   create(data: Task): Promise<void>;
 
-  findAllByUser(userId: string): Promise<Task[]>;
-
-  findByParams(findOptions: FindByParamsOptions): Promise<Task[]>;
+  findAllByUser(
+    findOptions: FindByParamsOptions,
+    userId: string
+  ): Promise<Task[]>;
 
   findOne(id: string, userId: string): Promise<Task | null>;
 

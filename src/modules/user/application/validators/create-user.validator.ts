@@ -1,11 +1,13 @@
 import { ICreateUserDto } from '../dto/create-user.dto';
 import { DomainError } from '../../../../core/domain/errors/domain.error';
+import { AppError } from '../../../../core/domain/errors/app.error';
 
 export function createUserValidator({
   email,
   phone,
   password,
   username,
+  image,
 }: ICreateUserDto): void {
   // Email validation
   if (!email || !email.includes('@') || email.trim().length > 255) {
@@ -35,5 +37,10 @@ export function createUserValidator({
   // Username validation
   if (!username || username.trim().length > 255) {
     throw new DomainError('Invalid username');
+  }
+
+  // Image validation
+  if (image && image.trim().length > 255) {
+    throw new AppError('Invalid image', 415);
   }
 }

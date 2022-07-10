@@ -3,7 +3,7 @@ import { Task } from '../core/entities/task.entity';
 import { DomainError } from '../../../core/domain/errors/domain.error';
 import { UserToken } from '../../../auth/core/interfaces/user-token';
 
-type FindOneTaskResponse = Omit<Task, 'id' | 'ownerId'>;
+type FindOneTaskResponse = Task;
 
 export class FindOneTaskUseCase {
   constructor(private taskRepository: ITaskRepository) {}
@@ -19,6 +19,7 @@ export class FindOneTaskUseCase {
       title: task.title,
       criticalityLevelId: task.criticalityLevelId,
       categoryId: task.categoryId,
+      projectId: task.projectId,
       isFinished: task.isFinished,
       deadline: task.deadline,
       description: task.description,

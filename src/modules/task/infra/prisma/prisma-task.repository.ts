@@ -12,26 +12,33 @@ export class PrismaTaskRepository implements ITaskRepository {
     await this.repository.create({
       data: {
         id: data.id,
+        description: data.description,
         title: data.title,
-        description: data.description ?? '',
-        categoryId: data.categoryId,
-        criticalityId: data.criticalityLevelId,
-        criticality: { connect: { id: data.criticalityLevelId } },
+        deadline: data.deadline ? new Date(data.deadline) : undefined,
+        isFinished: data.isFinished,
+        owner: { connect: { id: data.ownerId } },
         category: { connect: { id: data.categoryId } },
+        project: { connect: undefined },
+        criticalityLevel: { connect: { id: data.criticalityLevelId } },
       },
     });
   }
 
-  async findAllByUser(userId: string): Promise<Task[]> {
-    return this.repository.findMany({ where: { userId } });
+  async findAllByUser(
+    findOptions: FindByParamsOptions,
+    userId: string
+  ): Promise<Task[]> {
+    let where = {};
+
+    for (const findOption of Object.entries(findOptions)) {
+      where = { [findOption[0]]: findOption[1] };
+    }
+
+    return this.repository.findMany({ where: { ownerId: userId, ...where } });
   }
 
   async findOne(id: string, userId: string): Promise<Task | null> {
-    return this.repository.findFirst({ where: { id, userId } });
-  }
-
-  async findByParams(findOptions: FindByParamsOptions): Promise<Task[]> {
-    return this.repository.findMany({ where: { id: findOptions.categoryId } });
+    return this.repository.findFirst({ where: { id, ownerId: userId } });
   }
 
   async update(id: string, data: Partial<Task>): Promise<void> {

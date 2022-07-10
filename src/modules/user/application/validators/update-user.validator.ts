@@ -5,7 +5,7 @@ import { DomainError } from '../../../../core/domain/errors/domain.error';
 
 export function updateUserValidator(
   id: string,
-  data: IUpdateUserDto,
+  { email, username, password, image, phone }: IUpdateUserDto,
   { id: loggedUserId }: UserToken
 ): void {
   // Only the authenticated user can update itself
@@ -14,12 +14,17 @@ export function updateUserValidator(
   }
 
   // Excluded because they will have special use-cases
-  if (data.password || data.phone || data.email) {
+  if (password || phone || email) {
     throw new AppError('Invalid inputs, try another method', 303);
   }
 
   // Verifies if the username is passed, if it is then check its length
-  if (data.username && data.username.trim().length > 255) {
+  if (username && username.trim().length > 255) {
     throw new DomainError('Invalid username');
+  }
+
+  // Image validation
+  if (image && image.trim().length > 255) {
+    throw new AppError('Invalid image', 415);
   }
 }
