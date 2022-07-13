@@ -12,7 +12,9 @@ Tabela de conteúdo
 * [Sobre](#descrição)
     * [Tabela de Conteudo](#tabela-de-conteúdo)
     * [Documentação](#documentação)
-        * [Modelo Lógico](#modelo-lógico)
+        * [Diagrama Entidade Relacionamento](#diagrama-entidade-relacionamento)
+        * [Diagrama de Casos de Uso](#diagrama-de-casos-de-uso)
+        * [Diagrama de Objetos](#diagrama-de-objetos)
     * [Como usar](#como-usar)
         * [Pré Requisitos](#pré-requisitos)
         * [Instalação](#rodando-o-back-end-servidor)
@@ -26,9 +28,13 @@ Tabela de conteúdo
 
 ## Documentação
 
-### Modelo Lógico
+### Diagrama Entidade Relacionamento
 
-![modelo_logico](.github/todo.png)
+![diagrama_entidade_relacionamento](.github/todo.png)
+
+### Diagrama de Casos de Uso
+
+### Diagrama de Objetos
 
 ## Como usar
 

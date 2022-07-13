@@ -1,4 +1,7 @@
 import { Router } from 'express';
+import swaggerUi from 'swagger-ui-express';
+
+import swaggerFile from '../swagger/openapi.json';
 
 import { ensureAuth } from '../middlewares/ensureAuth';
 import { appErrorHandler } from '../../errors/app-error.handler';
@@ -10,6 +13,8 @@ import { criticalityLevelRoutes } from '../../../modules/criticality-level/infra
 import { taskRoutes } from '../../../modules/task/infra/http/routes/task.routes';
 
 const appRoutes = Router();
+
+appRoutes.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 appRoutes.use('/user', userRoutes);
 

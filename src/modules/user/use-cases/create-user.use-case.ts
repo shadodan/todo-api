@@ -11,8 +11,11 @@ export class CreateUserUseCase {
     private encoderProvider: IEncoderProvider
   ) {}
 
-  async execute(data: ICreateUserDto): Promise<void> {
-    createUserValidator(data);
+  async execute({
+    passwordVerification,
+    ...data
+  }: ICreateUserDto): Promise<void> {
+    createUserValidator({ ...data, passwordVerification });
 
     const emailAlreadyInUse = await this.userRepository.findByEmail(data.email);
 

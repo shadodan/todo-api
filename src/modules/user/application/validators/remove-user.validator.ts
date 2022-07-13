@@ -1,5 +1,5 @@
 import { UserToken } from '../../../../auth/core/interfaces/user-token';
-import { DomainError } from '../../../../core/domain/errors/domain.error';
+import { AppError } from '../../../../core/domain/errors/app.error';
 
 export function removeUserValidator(
   id: string,
@@ -7,6 +7,6 @@ export function removeUserValidator(
 ): void {
   // Only the authenticated user can delete itself
   if (loggedUserId !== id) {
-    throw new DomainError('You cannot delete another user');
+    throw new AppError('You cannot delete another user', 403);
   }
 }

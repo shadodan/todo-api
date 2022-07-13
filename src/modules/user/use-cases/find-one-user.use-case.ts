@@ -1,5 +1,6 @@
 import { IUserRepository } from '../core/repositories/user.repository';
 import { IFindOneUserResponse } from '../core/interfaces/find-one-user-response.interface';
+import { DomainError } from '../../../core/domain/errors/domain.error';
 
 export class FindOneUserUseCase {
   constructor(private userRepository: IUserRepository) {}
@@ -8,7 +9,7 @@ export class FindOneUserUseCase {
     const user = await this.userRepository.findOne(id);
 
     if (!user) {
-      throw new Error('User not found');
+      throw new DomainError('User not found');
     }
 
     return user;

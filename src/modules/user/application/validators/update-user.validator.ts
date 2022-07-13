@@ -5,26 +5,21 @@ import { DomainError } from '../../../../core/domain/errors/domain.error';
 
 export function updateUserValidator(
   id: string,
-  { email, username, password, image, phone }: IUpdateUserDto,
+  { email, username, password, passwordVerification, phone }: IUpdateUserDto,
   { id: loggedUserId }: UserToken
 ): void {
   // Only the authenticated user can update itself
   if (loggedUserId !== id) {
-    throw new DomainError('You cannot update another user');
+    throw new AppError('You cannot update another user', 403);
   }
 
   // Excluded because they will have special use-cases
-  if (password || phone || email) {
+  if (password || phone || email || passwordVerification) {
     throw new AppError('Invalid inputs, try another method', 303);
   }
 
   // Verifies if the username is passed, if it is then check its length
   if (username && username.trim().length > 255) {
     throw new DomainError('Invalid username');
-  }
-
-  // Image validation
-  if (image && image.trim().length > 255) {
-    throw new AppError('Invalid image', 415);
   }
 }
