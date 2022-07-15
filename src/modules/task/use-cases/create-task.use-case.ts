@@ -30,7 +30,6 @@ export class CreateTaskUseCase {
       ...data,
       ownerId: user.id,
       categoryId: data.category.id,
-      projectId: data.project?.id,
       criticalityLevelId: data.criticalityLevel.id,
       isFinished: false,
     });

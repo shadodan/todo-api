@@ -8,6 +8,6 @@ export function removeTaskValidator(
 ): void {
   // Authentication validation
   if (loggedUserId !== ownerId) {
-    throw new AppError("You cannot remove another user's task");
+    throw new AppError("You cannot remove another user's task", 403);
   }
 }

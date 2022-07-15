@@ -7,9 +7,6 @@ export interface IFindOneTaskResponse {
   criticalityLevel: {
     description: string;
   };
-  project: {
-    id: string;
-  } | null;
   title: string;
   description: string;
   deadline: Date | null;

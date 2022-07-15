@@ -44,6 +44,6 @@ export function updateTaskValidator(
 
   // Authentication validation
   if (loggedUserId !== ownerId) {
-    throw new AppError("You cannot change another user's task");
+    throw new AppError("You cannot change another user's task", 403);
   }
 }

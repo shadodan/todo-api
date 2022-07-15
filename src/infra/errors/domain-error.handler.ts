@@ -9,7 +9,7 @@ export function domainErrorHandler(
   next: NextFunction
 ) {
   if (err instanceof DomainError) {
-    res.status(404).json({
+    res.status(400).json({
       status: 'Error',
       message: err.message,
     });

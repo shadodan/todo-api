@@ -5,7 +5,14 @@ import { DomainError } from '../../../../core/domain/errors/domain.error';
 
 export function updateUserValidator(
   id: string,
-  { email, username, password, passwordVerification, phone }: IUpdateUserDto,
+  {
+    email,
+    username,
+    password,
+    passwordVerification,
+    phone,
+    image,
+  }: IUpdateUserDto,
   { id: loggedUserId }: UserToken
 ): void {
   // Only the authenticated user can update itself
@@ -21,5 +28,10 @@ export function updateUserValidator(
   // Verifies if the username is passed, if it is then check its length
   if (username && username.trim().length > 255) {
     throw new DomainError('Invalid username');
+  }
+
+  // Verifies if the image is correct
+  if (image && !image.startsWith('data:image/png;base64')) {
+    throw new Error('Invalid image format');
   }
 }

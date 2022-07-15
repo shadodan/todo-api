@@ -8,6 +8,6 @@ export function removeCategoryValidator(
 ): void {
   // Authentication validation
   if (loggedUserId !== userId) {
-    throw new AppError("You cannot remove another user's category");
+    throw new AppError("You cannot remove another user's category", 403);
   }
 }

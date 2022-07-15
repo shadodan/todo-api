@@ -4,7 +4,6 @@ import { CriticalityLevel } from '../../../criticality-level/core/entities/criti
 export interface ICreateTaskDto {
   category: Category;
   criticalityLevel: CriticalityLevel;
-  project?: { id: string };
   title: string;
   description?: string;
   deadline?: Date;

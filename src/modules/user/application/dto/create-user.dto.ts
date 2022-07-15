@@ -4,4 +4,5 @@ export interface ICreateUserDto {
   phone: string;
   password: string;
   passwordVerification: string;
+  image?: string;
 }

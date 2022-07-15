@@ -7,6 +7,7 @@ export function createUserValidator({
   password,
   passwordVerification,
   username,
+  image,
 }: ICreateUserDto): void {
   // Email validation
   if (!email || !email.includes('@') || email.trim().length > 255) {
@@ -37,5 +38,10 @@ export function createUserValidator({
   // Username validation
   if (!username || username.trim().length > 255) {
     throw new DomainError('Invalid username');
+  }
+
+  // Image validation
+  if (image && !image.startsWith('data:image/png;base64')) {
+    throw new Error('Invalid image format');
   }
 }

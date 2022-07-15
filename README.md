@@ -21,7 +21,6 @@ Tabela de conteúdo
     * [Funcionalidades](#funcionalidades)
         * [Usuário](#usuário)
         * [Tarefas](#tarefas)
-        * [Projetos](#projetos)
     * [Tecnologias](#tecnologias)
 
 #### Clean architecture API 🚀 Em construção... 🚧
@@ -70,8 +69,6 @@ $ npm run start:dev
 ### Usuário
 
 ### Tarefas
-
-### Projetos
 
 ## Tecnologias
 

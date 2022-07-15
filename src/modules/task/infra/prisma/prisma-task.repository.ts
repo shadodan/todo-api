@@ -20,7 +20,6 @@ export class PrismaTaskRepository implements ITaskRepository {
         isFinished: data.isFinished,
         owner: { connect: { id: data.ownerId } },
         category: { connect: { id: data.categoryId } },
-        project: { connect: undefined },
         criticalityLevel: { connect: { id: data.criticalityLevelId } },
       },
     });
@@ -61,7 +60,6 @@ export class PrismaTaskRepository implements ITaskRepository {
         id: true,
         category: { select: { name: true, colour: true } },
         criticalityLevel: { select: { description: true } },
-        project: true,
         title: true,
         description: true,
         isFinished: true,
