@@ -1,7 +1,7 @@
-import { User } from '../../../modules/user/core/entities/user.entity';
+import { UserToken } from './user-token';
 
-export interface JwtPayloadInterface {
+export interface IJwtPayload {
   sub: {
-    user: User;
+    user: UserToken;
   };
 }

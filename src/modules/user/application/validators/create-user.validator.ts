@@ -1,44 +1,47 @@
-import { CreateUserDto } from '../dto/create-user.dto';
+import { ICreateUserDto } from '../dto/create-user.dto';
+import { DomainError } from '../../../../core/domain/errors/domain.error';
 
-// TODO: VERIFY IF VALIDATIONS ARE WORKING
 export function createUserValidator({
-  username,
   email,
   phone,
   password,
-}: CreateUserDto): boolean {
-  // Username validation
-  if (!username || username.trim().length > 255) {
-    return false;
-  }
-
+  passwordVerification,
+  username,
+  image,
+}: ICreateUserDto): void {
   // Email validation
-  const emailRegex =
-    /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/;
-
-  if (!email || emailRegex.test(email.trim()) || email.trim().length > 255) {
-    return false;
+  if (!email || !email.includes('@') || email.trim().length > 255) {
+    throw new DomainError('Invalid email');
   }
 
   // Phone validation
-  const phoneRegex =
-    /\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?/;
-
-  if (!phone || phoneRegex.test(phone) || phone.trim().length > 255) {
-    return false;
+  if (!phone || phone.trim().length > 255) {
+    throw new DomainError('Invalid phone');
   }
 
   // Password validation
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/;
-
   if (
     !password ||
-    passwordRegex.test(password) ||
+    !/[a-z]/.test(password) ||
+    !/[A-Z]/.test(password) ||
+    !/\d/.test(password) ||
+    !/[!@#$%^&*.,\/+{\[\]\-;´`~<>}\\?_=§()|]/.test(password) ||
+    password.length < 8 ||
+    password.trim() !== passwordVerification.trim() ||
     password.trim().length > 255
   ) {
-    return false;
+    throw new DomainError(
+      'Invalid password, your password is not secure, make sure that it has a special character, a number, a uppercase letter, lowercase letter and length of 8 characters'
+    );
   }
 
-  return true;
+  // Username validation
+  if (!username || username.trim().length > 255) {
+    throw new DomainError('Invalid username');
+  }
+
+  // Image validation
+  if (image && !image.startsWith('data:image/png;base64')) {
+    throw new Error('Invalid image format');
+  }
 }

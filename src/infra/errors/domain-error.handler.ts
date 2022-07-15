@@ -6,18 +6,14 @@ export function domainErrorHandler(
   err: Error,
   _req: Request,
   res: Response,
-  _next: NextFunction
+  next: NextFunction
 ) {
   if (err instanceof DomainError) {
-    // TODO: VERIFIY WHICH HTTP STATUS BEST SUITS HERE
-    res.status(422).json({
+    res.status(400).json({
       status: 'Error',
       message: err.message,
     });
   }
 
-  res.status(500).json({
-    status: 'Error',
-    message: err.message,
-  });
+  next(err);
 }

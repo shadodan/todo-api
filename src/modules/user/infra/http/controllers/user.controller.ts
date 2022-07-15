@@ -1,20 +1,19 @@
-import { container } from 'tsyringe';
 import { NextFunction, Request, Response } from 'express';
 
-import { CreateUserUseCase } from '../../../application/use-cases/create-user.use-case';
-import { UpdateUserUseCase } from '../../../application/use-cases/update-user.use-case';
-import { RemoveUserUseCase } from '../../../application/use-cases/remove-user.use-case';
-import { FindAllUserUseCase } from '../../../application/use-cases/find-all-user.use-case';
-import { FindOneUserUseCase } from '../../../application/use-cases/find-one-user.use-case';
+import { createUserFactory } from '../../factories/create-user.factory';
+import { updateUserFactory } from '../../factories/update-user.factory';
+import { removeUserFactory } from '../../factories/remove-user.factory';
+import { findAllUserFactory } from '../../factories/find-all-user.factory';
+import { findOneUserFactory } from '../../factories/find-one-user.factory';
 
 export class UserController {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const service = container.resolve(CreateUserUseCase);
+      const useCase = createUserFactory();
 
       const data = req.body;
 
-      res.status(201).json(await service.execute(data));
+      res.status(201).json(await useCase.execute(data));
     } catch (err) {
       next(err);
     }
@@ -26,9 +25,9 @@ export class UserController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const service = container.resolve(FindAllUserUseCase);
+      const useCase = findAllUserFactory();
 
-      res.json(await service.execute());
+      res.json(await useCase.execute());
     } catch (err) {
       next(err);
     }
@@ -40,11 +39,11 @@ export class UserController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const service = container.resolve(FindOneUserUseCase);
+      const useCase = findOneUserFactory();
 
       const { id } = req.params;
 
-      res.json(await service.execute(id));
+      res.json(await useCase.execute(id));
     } catch (err) {
       next(err);
     }
@@ -52,12 +51,13 @@ export class UserController {
 
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const service = container.resolve(UpdateUserUseCase);
+      const useCase = updateUserFactory();
 
       const data = req.body;
       const { id } = req.params;
+      const { user } = req.token.sub;
 
-      res.json(await service.execute(id, data));
+      res.json(await useCase.execute(id, data, user));
     } catch (err) {
       next(err);
     }
@@ -65,11 +65,12 @@ export class UserController {
 
   async remove(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const service = container.resolve(RemoveUserUseCase);
+      const useCase = removeUserFactory();
 
       const { id } = req.params;
+      const { user } = req.token.sub;
 
-      res.json(await service.execute(id));
+      res.json(await useCase.execute(id, user));
     } catch (err) {
       next(err);
     }
