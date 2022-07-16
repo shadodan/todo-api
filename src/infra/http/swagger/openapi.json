@@ -78,7 +78,7 @@
         }
       }
     },
-    "/auth/recover-password": {
+    "/auth/recover-password-by-email": {
       "post": {
         "tags": [
           "Auth"
@@ -107,7 +107,44 @@
             "description": "OK"
           },
           "404": {
-            "description": "User not found"
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/auth/recover-password-by-sms": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Send a request that emits an sms to change the forgotten password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phone": {
+                    "type": "string",
+                    "required": true
+                  }
+                },
+                "example": {
+                  "phone": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not found"
           },
           "500": {
             "description": "Internal server error"
