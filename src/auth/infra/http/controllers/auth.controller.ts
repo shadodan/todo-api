@@ -1,33 +1,50 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { loginFactory } from '../../factories/login.factory';
-import { recoverPasswordFactory } from '../../factories/recover-password.factory';
+import { recoverPasswordByEmailFactory } from '../../factories/recover-password-by-email.factory';
 import { changeForgottenPasswordFactory } from '../../factories/change-forgotten-password.factory';
+import { recoverPasswordBySmsFactory } from '../../factories/recover-password-by-sms.factory';
 
 export class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const service = loginFactory();
+      const useCase = loginFactory();
 
       const input = req.body;
 
-      res.json(await service.execute(input));
+      res.json(await useCase.execute(input));
     } catch (err) {
       next(err);
     }
   }
 
-  async recoverPassword(
+  async recoverPasswordByEmail(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> {
     try {
-      const service = recoverPasswordFactory();
+      const useCase = recoverPasswordByEmailFactory();
 
       const { email } = req.body;
 
-      res.json(await service.execute(email));
+      res.json(await useCase.execute(email));
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async recoverPasswordBySms(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const useCase = recoverPasswordBySmsFactory();
+
+      const { phone } = req.body;
+
+      res.json(await useCase.execute(phone));
     } catch (err) {
       next(err);
     }
@@ -39,12 +56,12 @@ export class AuthController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const service = changeForgottenPasswordFactory();
+      const useCase = changeForgottenPasswordFactory();
 
       const input = req.body;
       const { id, token } = req.params;
 
-      res.json(await service.execute(id, token, input));
+      res.json(await useCase.execute(id, token, input));
     } catch (err) {
       next(err);
     }

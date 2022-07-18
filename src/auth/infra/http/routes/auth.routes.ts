@@ -7,7 +7,15 @@ const authController = new AuthController();
 
 authRoutes.post('/login', authController.login);
 
-authRoutes.post('/recover-password', authController.recoverPassword);
+authRoutes.post(
+  '/recover-password-by-email',
+  authController.recoverPasswordByEmail
+);
+
+authRoutes.post(
+  '/recover-password-by-sms',
+  authController.recoverPasswordBySms
+);
 
 authRoutes.post(
   '/change-forgotten-password/:id/:token',
