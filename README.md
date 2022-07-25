@@ -13,8 +13,6 @@ Tabela de conteúdo
     * [Tabela de Conteudo](#tabela-de-conteúdo)
     * [Documentação](#documentação)
         * [Diagrama Entidade Relacionamento](#diagrama-entidade-relacionamento)
-        * [Diagrama de Casos de Uso](#diagrama-de-casos-de-uso)
-        * [Diagrama de Objetos](#diagrama-de-objetos)
     * [Como usar](#como-usar)
         * [Pré Requisitos](#pré-requisitos)
         * [Instalação](#rodando-o-back-end-servidor)
@@ -23,17 +21,13 @@ Tabela de conteúdo
         * [Tarefas](#tarefas)
     * [Tecnologias](#tecnologias)
 
-#### Clean architecture API 🚀 Em construção... 🚧
+#### Clean architecture API 🚀 Finalizado 🚀
 
 ## Documentação
 
 ### Diagrama Entidade Relacionamento
 
 ![diagrama_entidade_relacionamento](.github/todo.png)
-
-### Diagrama de Casos de Uso
-
-### Diagrama de Objetos
 
 ## Como usar
 
