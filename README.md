@@ -62,7 +62,14 @@ $ npm run start:dev
 
 ### Usuário
 
+- Autenticação por meio de email e senha
+- Recuperação da senha via email
+- Recuperação da senha via SMS
+
 ### Tarefas
+
+- Poderá ter prazos para se finalizar a tarefa
+- Criação de categorias para gerenciar melhor as tarefas
 
 ## Tecnologias
 
